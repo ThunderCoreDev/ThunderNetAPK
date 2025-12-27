@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Estilo para el PopupMenu -->
+    <style name="BattleNetPopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_background</item>
+        <item name="android:textColor">@color/battlenet_text_primary</item>
+        <item name="android:itemBackground">@drawable/popup_item_background</item>
+    </style>
+
+    <!-- Estilo para los items del menú -->
+    <style name="BattleNetMenuItem" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/battlenet_text_primary</item>
+        <item name="android:background">@drawable/menu_item_selector</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:drawableTint">@color/battlenet_electric_blue</item>
+    </style>
+
+    <!-- Estilo para AlertDialog tipo BattleNet -->
+    <style name="BattleNetAlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:textColorPrimary">@color/battlenet_text_primary</item>
+        <item name="android:textColorSecondary">@color/battlenet_text_secondary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/BattleNetDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/BattleNetDialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/BattleNetDialogButton</item>
+        <item name="android:colorBackground">@color/battlenet_dark_blue</item>
+    </style>
+
+    <!-- Estilo para botones de diálogo -->
+    <style name="BattleNetDialogButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/battlenet_text_primary</item>
+        <item name="backgroundTint">@color/battlenet_electric_blue</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <!-- Estilo para EditText -->
+    <style name="BattleNetEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/battlenet_electric_blue</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="boxCornerRadiusTopStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="hintTextColor">@color/battlenet_text_secondary</item>
+        <item name="android:textColorHint">@color/battlenet_text_secondary</item>
+        <item name="android:textColor">@color/battlenet_text_primary</item>
+        <item name="android:background">@drawable/edittext_background</item>
+    </style>
+
+    <!-- Estilo para botones regulares -->
+    <style name="BattleNetButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/battlenet_dark_blue</item>
+        <item name="backgroundTint">@color/battlenet_electric_blue</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+</resources>

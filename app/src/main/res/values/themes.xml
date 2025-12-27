@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Theme.ThunderNetWeb" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Colores BattleNet -->
+        <item name="colorPrimary">@color/battlenet_dark_blue</item>
+        <item name="colorPrimaryVariant">@color/battlenet_medium_blue</item>
+        <item name="colorSecondary">@color/battlenet_electric_blue</item>
+        <item name="colorSecondaryVariant">@color/battlenet_electric_blue_light</item>
+        <item name="colorOnPrimary">@color/battlenet_text_primary</item>
+        <item name="colorOnSecondary">@color/battlenet_dark_blue</item>
+        
+        <!-- Para PopupMenu -->
+        <item name="popupMenuStyle">@style/BattleNetPopupMenu</item>
+        <item name="android:popupMenuStyle">@style/BattleNetPopupMenu</item>
+        
+        <!-- Para diálogos -->
+        <item name="alertDialogTheme">@style/BattleNetAlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/BattleNetAlertDialog</item>
+        
+        <!-- Para EditText -->
+        <item name="editTextStyle">@style/BattleNetEditText</item>
+        
+        <!-- Para botones -->
+        <item name="materialButtonStyle">@style/BattleNetButton</item>
+        
+        <!-- Para la barra de estado -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/battlenet_dark_blue</item>
+        <item name="android:navigationBarColor" tools:targetApi="o">@color/battlenet_dark_blue</item>
+        
+        <!-- Para la barra de navegación -->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
+    <!-- Tema para modo noche (si aplica) -->
+    <style name="Theme.ThunderNetWeb.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ThunderNetWeb.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ThunderNetWeb.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

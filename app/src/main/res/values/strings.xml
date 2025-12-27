@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ThunderNet WoW</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="menu_configure_url">Configurar URL</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores BattleNet Style -->
+    <color name="battlenet_dark_blue">#0A1428</color>
+    <color name="battlenet_medium_blue">#132347</color>
+    <color name="battlenet_light_blue">#1A3563</color>
+    <color name="battlenet_electric_blue">#00B4FF</color>
+    <color name="battlenet_electric_blue_light">#33C3FF</color>
+    <color name="battlenet_text_primary">#FFFFFF</color>
+    <color name="battlenet_text_secondary">#CCCCCC</color>
+    <color name="battlenet_accent">#FFD100</color>
+    <color name="battlenet_divider">#1A3563</color>
+    
+    <!-- Colores del tema -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

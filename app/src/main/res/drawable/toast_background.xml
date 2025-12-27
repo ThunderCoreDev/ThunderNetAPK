@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo con transparencia -->
+    <solid android:color="#CC0A1428" /> <!-- CC = 80% opacidad -->
+    
+    <!-- Esquinas redondeadas -->
+    <corners android:radius="20dp" />
+    
+    <!-- Borde sutil azul eléctrico -->
+    <stroke 
+        android:width="1dp" 
+        android:color="#6600B4FF" /> <!-- 66 = 40% opacidad -->
+    
+    <!-- Sombra para efecto flotante -->
+    <padding 
+        android:left="4dp"
+        android:top="4dp"
+        android:right="4dp"
+        android:bottom="4dp" />
+</shape>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="140dp"
+    android:viewportWidth="140"
+    android:viewportHeight="140">
+    
+    <!-- W de World of Warcraft estilo BattleNet -->
+    <path
+        android:name="w_letter"
+        android:fillColor="#00B4FF"
+        android:pathData="M30,40 L45,100 L60,60 L75,100 L90,40"
+        android:strokeColor="#00B4FF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+        
+    <!-- Detalle interior (opcional) -->
+    <path
+        android:name="w_detail"
+        android:fillColor="#00B4FF"
+        android:pathData="M48,68 L62,68"
+        android:strokeColor="#00B4FF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+        
+    <!-- Efecto brillo -->
+    <path
+        android:name="w_highlight"
+        android:fillColor="#33C3FF"
+        android:pathData="M35,45 L50,95"
+        android:strokeColor="#33C3FF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.7" />
+</vector>

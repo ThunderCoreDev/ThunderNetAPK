@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/splashLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A1428">
+
+    <!-- Contenedor principal centrado -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Logo W de World of Warcraft -->
+        <TextView
+            android:id="@+id/wowLogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="W"
+            android:textColor="#00B4FF"
+            android:textSize="100sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed" />
+
+        <!-- Texto ThunderNet -->
+        <TextView
+            android:id="@+id/logoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THUNDERNET"
+            android:textColor="#00B4FF"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:fontFamily="sans-serif-condensed" />
+
+        <!-- Texto World of Warcraft -->
+        <TextView
+            android:id="@+id/subText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="WORLD OF WARCRAFT"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:letterSpacing="0.05"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed" />
+
+        <!-- Círculo de carga -->
+        <ProgressBar
+            android:id="@+id/loadingCircle"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp"
+            android:indeterminateTint="#00B4FF" />
+
+        <!-- Texto de carga -->
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Conectando..."
+            android:textColor="#CCCCCC"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <!-- Versión y copyright -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v1.0.0"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:fontFamily="sans-serif" />
+
+        <TextView
+            android:id="@+id/copyrightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="© 2026+ ThunderNet WoW"
+            android:textColor="#888888"
+            android:textSize="10sp"
+            android:letterSpacing="0.02" />
+
+    </LinearLayout>
+
+</RelativeLayout>

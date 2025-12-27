@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Círculo externo -->
+    <item>
+        <shape
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thickness="4dp"
+            android:useLevel="false">
+            <stroke
+                android:width="2dp"
+                android:color="#00B4FF" /> <!-- Azul eléctrico -->
+        </shape>
+    </item>
+    
+    <!-- Segmentos del círculo (estilo BattleNet) -->
+    <item android:drawable="@drawable/loading_segments" />
+</layer-list>
