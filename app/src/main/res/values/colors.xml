@@ -68,29 +68,48 @@
     <color name="danger">#F44336</color>
     <color name="info">#2196F3</color>
     
-    <!-- ====== COLORES BATTLENET (nombres específicos) ====== -->
+    <!-- ====== COLORES BATTLENET (COMPLETOS - todos los necesarios) ====== -->
+    <!-- Colores principales BattleNet -->
+    <color name="battlenet_dark_blue">#0A1128</color>
+    <color name="battlenet_medium_blue">#0066CC</color>
+    <color name="battlenet_electric_blue">#00AEFF</color>
+    <color name="battlenet_electric_blue_light">#33CCFF</color>
+    <color name="battlenet_blue_dark">#0066CC</color>
+    <color name="battlenet_blue_light">#33CCFF</color>
+    <color name="battlenet_light_blue">#66CCFF</color>  <!-- Para menu_item_pressed.xml y popup_item_background.xml -->
+    
+    <!-- Textos BattleNet -->
     <color name="battlenet_text_primary">#FFFFFF</color>
     <color name="battlenet_text_secondary">#8FA3BF</color>
     <color name="battlenet_text_muted">#5D7290</color>
-    <color name="battlenet_dark_blue">#0A1128</color>
-    <color name="battlenet_electric_blue">#00AEFF</color>
-    <color name="battlenet_blue_dark">#0066CC</color>
-    <color name="battlenet_blue_light">#33CCFF</color>
+    
+    <!-- UI Elements BattleNet -->
     <color name="battlenet_border">#2A3F5F</color>
     <color name="battlenet_card">#0B1622</color>
     
-    <!-- COLORES FALTANTES QUE EL ERROR MUESTRA -->
-    <color name="battlenet_medium_blue">#0066CC</color>
-    <color name="battlenet_electric_blue_light">#33CCFF</color>
-    
-    <!-- ====== ALIASES PARA COMPATIBILIDAD ====== -->
-    <!-- Estos aliases deben apuntar a colores que SÍ existen -->
+    <!-- Aliases BattleNet -->
     <color name="battlenet_primary">@color/accent_blue</color>
     <color name="battlenet_secondary">@color/text_secondary</color>
     
     <!-- ====== COLORES ADICIONALES PARA COMPATIBILIDAD ====== -->
-    <!-- Si otros archivos usan @android:color/white, @android:color/black, etc. -->
+    <!-- Colores compatibilidad con temas antiguos -->
     <color name="colorPrimary">@color/battlenet_dark_blue</color>
     <color name="colorPrimaryDark">@color/primary_dark</color>
     <color name="colorAccent">@color/accent_blue</color>
+    
+    <!-- Colores de Material Design Components -->
+    <color name="material_on_surface_stroke">#1F1B1B</color>
+    <color name="material_dynamic_neutral0">#FFFFFF</color>
+    <color name="material_dynamic_neutral10">#F5F5F5</color>
+    <color name="material_dynamic_neutral20">#E0E0E0</color>
+    <color name="material_dynamic_neutral30">#BDBDBD</color>
+    <color name="material_dynamic_neutral90">#212121</color>
+    <color name="material_dynamic_neutral95">#424242</color>
+    <color name="material_dynamic_neutral99">#000000</color>
+    <color name="material_dynamic_neutral100">#000000</color>
+    
+    <!-- Colores de estado -->
+    <color name="colorControlHighlight">#33FFFFFF</color>
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorButtonNormal">#1C2B45</color>
 </resources>
