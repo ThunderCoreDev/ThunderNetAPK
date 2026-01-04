@@ -1,0 +1,400 @@
+<div class="notifications-module">
+    <div class="module-header">
+        <h2><i class="fas fa-bell"></i> Notificaciones Push</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="showSendNotificationModal()">
+                <i class="fas fa-paper-plane"></i> Nueva Notificación
+            </button>
+            <button class="btn btn-secondary" onclick="refreshNotifications()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="notifications-container">
+        <div class="stats-cards">
+            <div class="stat-card small">
+                <div class="stat-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalNotifications">128</div>
+                    <div class="stat-label">Total Enviadas</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="deliveredNotifications">112</div>
+                    <div class="stat-label">Entregadas</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="readNotifications">89</div>
+                    <div class="stat-label">Leídas</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="activeSubscribers">245</div>
+                    <div class="stat-label">Suscriptores</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notifications-content">
+            <div class="notifications-tabs">
+                <button class="tab-btn active" onclick="showNotificationTab('recent')">
+                    <i class="fas fa-clock"></i> Recientes
+                </button>
+                <button class="tab-btn" onclick="showNotificationTab('scheduled')">
+                    <i class="fas fa-calendar-alt"></i> Programadas
+                </button>
+                <button class="tab-btn" onclick="showNotificationTab('templates')">
+                    <i class="fas fa-layer-group"></i> Plantillas
+                </button>
+                <button class="tab-btn" onclick="showNotificationTab('settings')">
+                    <i class="fas fa-cog"></i> Configuración
+                </button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="recentTab" class="tab-pane active">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Mensaje</th>
+                                    <th>Destino</th>
+                                    <th>Envío</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Evento Double XP</strong></td>
+                                    <td>¡Doble experiencia este fin de semana!</td>
+                                    <td>Todos los jugadores</td>
+                                    <td>Hace 2 horas</td>
+                                    <td><span class="status-badge status-online">Enviado</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="viewNotification(1)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-action" onclick="resendNotification(1)">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mantenimiento</strong></td>
+                                    <td>Servidor offline por mantenimiento</td>
+                                    <td>Jugadores online</td>
+                                    <td>Ayer, 14:30</td>
+                                    <td><span class="status-badge status-online">Entregado</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="viewNotification(2)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-action" onclick="copyNotification(2)">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nueva Actualización</strong></td>
+                                    <td>Nuevas misiones disponibles</td>
+                                    <td>Nivel 60+</td>
+                                    <td>15 Ene, 10:00</td>
+                                    <td><span class="status-badge status-pending">Pendiente</span></td>
+                                    <td>
+                                        <button class="btn-action" onclick="viewNotification(3)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-action" onclick="cancelNotification(3)">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="scheduledTab" class="tab-pane">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>No hay notificaciones programadas</h4>
+                        <p>Programa notificaciones para enviarlas automáticamente</p>
+                        <button class="btn btn-primary" onclick="showScheduleNotificationModal()">
+                            <i class="fas fa-plus"></i> Programar Notificación
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="templatesTab" class="tab-pane">
+                    <div class="templates-grid">
+                        <div class="template-card" onclick="useTemplate('maintenance')">
+                            <div class="template-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h4>Mantenimiento</h4>
+                            <p>Anuncio de mantenimiento del servidor</p>
+                        </div>
+                        <div class="template-card" onclick="useTemplate('event')">
+                            <div class="template-icon">
+                                <i class="fas fa-calendar-star"></i>
+                            </div>
+                            <h4>Evento Especial</h4>
+                            <p>Anuncio de evento del servidor</p>
+                        </div>
+                        <div class="template-card" onclick="useTemplate('update')">
+                            <div class="template-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h4>Actualización</h4>
+                            <p>Anuncio de nueva actualización</p>
+                        </div>
+                        <div class="template-card" onclick="useTemplate('welcome')">
+                            <div class="template-icon">
+                                <i class="fas fa-hand-wave"></i>
+                            </div>
+                            <h4>Bienvenida</h4>
+                            <p>Mensaje de bienvenida a nuevos jugadores</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="settingsTab" class="tab-pane">
+                    <div class="settings-form">
+                        <div class="input-group">
+                            <label>
+                                <input type="checkbox" id="enablePush" checked>
+                                <span>Habilitar notificaciones push</span>
+                            </label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Título por defecto</label>
+                            <input type="text" id="defaultTitle" value="ThunderNet WoW">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Icono por defecto</label>
+                            <input type="text" id="defaultIcon" value="https://example.com/icon.png">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Tiempo de expiración (horas)</label>
+                            <input type="number" id="expirationTime" value="24">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Notificaciones automáticas</label>
+                            <select id="autoNotifications">
+                                <option value="none">Ninguna</option>
+                                <option value="maintenance">Solo mantenimiento</option>
+                                <option value="events">Eventos y mantenimiento</option>
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="saveNotificationSettings()">
+                            <i class="fas fa-save"></i> Guardar Configuración
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.notifications-container {
+    margin-top: 20px;
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card.small {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-card.small .stat-icon {
+    font-size: 1.5rem;
+    color: var(--accent-blue);
+}
+
+.stat-card.small .stat-value {
+    font-size: 1.8rem;
+}
+
+.notifications-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+}
+
+.notifications-tabs .tab-btn {
+    flex: none;
+    padding: 15px 20px;
+    border-radius: 0;
+}
+
+.tab-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--accent-blue);
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.template-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.template-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-5px);
+}
+
+.template-icon {
+    font-size: 2rem;
+    color: var(--accent-blue);
+    margin-bottom: 15px;
+}
+
+.template-card h4 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+
+.template-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+</style>
+
+<script>
+function showNotificationTab(tabName) {
+    // Cambiar pestañas activas
+    document.querySelectorAll('.notifications-tabs .tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+    
+    // Mostrar contenido correspondiente
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+    });
+    document.getElementById(`${tabName}Tab`).classList.add('active');
+}
+
+function showSendNotificationModal() {
+    alert('Mostrar modal para enviar notificación');
+}
+
+function showScheduleNotificationModal() {
+    alert('Mostrar modal para programar notificación');
+}
+
+function refreshNotifications() {
+    alert('Actualizando notificaciones...');
+    // Simular actualización de estadísticas
+    document.getElementById('totalNotifications').textContent = 
+        Math.floor(Math.random() * 50) + 128;
+    document.getElementById('deliveredNotifications').textContent = 
+        Math.floor(Math.random() * 20) + 112;
+    document.getElementById('readNotifications').textContent = 
+        Math.floor(Math.random() * 30) + 89;
+    document.getElementById('activeSubscribers').textContent = 
+        Math.floor(Math.random() * 100) + 245;
+}
+
+function viewNotification(id) {
+    alert(`Ver detalles notificación ID: ${id}`);
+}
+
+function resendNotification(id) {
+    if (confirm('¿Reenviar esta notificación?')) {
+        alert(`Notificación ${id} reenviada`);
+    }
+}
+
+function copyNotification(id) {
+    alert(`Copiar notificación ${id} como plantilla`);
+}
+
+function cancelNotification(id) {
+    if (confirm('¿Cancelar esta notificación programada?')) {
+        alert(`Notificación ${id} cancelada`);
+    }
+}
+
+function useTemplate(templateName) {
+    alert(`Usar plantilla: ${templateName}`);
+}
+
+function saveNotificationSettings() {
+    alert('Configuración de notificaciones guardada');
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    refreshNotifications();
+    showNotificationTab('recent');
+});
+</script>

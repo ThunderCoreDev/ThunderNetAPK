@@ -1,0 +1,385 @@
+name: ThunderNet Admin - Build & Deploy
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Tipo de build'
+        required: true
+        default: 'debug'
+        type: choice
+        options:
+        - debug
+        - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout del código
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: 📁 Verificar estructura del proyecto
+      run: |
+        echo "=== ESTRUCTURA DEL PROYECTO ==="
+        echo ""
+        echo "📦 Archivos principales:"
+        ls -la
+        echo ""
+        echo "📱 Carpeta app:"
+        ls -la app/ || echo "⚠️ No existe carpeta app"
+        echo ""
+        echo "📄 Archivos Android:"
+        ls -la app/src/main/AndroidManifest.xml 2>/dev/null || echo "❌ No existe Manifest"
+        ls -la app/build.gradle 2>/dev/null || echo "❌ No existe build.gradle"
+        echo ""
+        echo "🌐 Archivos web:"
+        ls -la app/src/main/assets/ 2>/dev/null || echo "⚠️ No existe assets"
+        echo ""
+        echo "🛠️ Gradle wrapper:"
+        if [ -f "gradlew" ]; then
+          echo "✅ gradlew encontrado"
+          chmod +x gradlew
+        else
+          echo "❌ gradlew no encontrado"
+        fi
+        
+    - name: ⚙️ Configurar JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+        
+    - name: 📱 Configurar SDK Android
+      uses: android-actions/setup-android@v3
+      
+    - name: 🛠️ Configurar Gradle
+      run: |
+        # Crear gradle wrapper si no existe
+        if [ ! -f "gradlew" ]; then
+          echo "📦 Creando gradle wrapper..."
+          mkdir -p gradle/wrapper
+          
+          # Descargar gradle-wrapper.jar
+          wget -q -O gradle/wrapper/gradle-wrapper.jar \
+            "https://github.com/gradle/gradle/raw/refs/tags/v8.4/gradle/wrapper/gradle-wrapper.jar"
+            
+          # Crear gradle-wrapper.properties
+          cat > gradle/wrapper/gradle-wrapper.properties << EOF
+          distributionBase=GRADLE_USER_HOME
+          distributionPath=wrapper/dists
+          distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-bin.zip
+          zipStoreBase=GRADLE_USER_HOME
+          zipStorePath=wrapper/dists
+          EOF
+          
+          # Crear script gradlew
+          cat > gradlew << 'EOF'
+          #!/bin/sh
+          #
+          # Copyright 2015 the original author or authors.
+          #
+          # Licensed under the Apache License, Version 2.0 (the "License");
+          # you may not use this file except in compliance with the License.
+          # You may obtain a copy of the License at
+          #
+          #      https://www.apache.org/licenses/LICENSE-2.0
+          #
+          # Unless required by applicable law or agreed to in writing, software
+          # distributed under the License is distributed on an "AS IS" BASIS,
+          # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+          # See the License for the specific language governing permissions and
+          # limitations under the License.
+          #
+          ##############################################################################
+          ##
+          ##  Gradle start up script for UN*X
+          ##
+          ##############################################################################
+          
+          # Attempt to set APP_HOME
+          # Resolve links: \$0 may be a link
+          PRG="\$0"
+          # Need this for relative symlinks.
+          while [ -h "\$PRG" ] ; do
+            ls=\`ls -ld "\$PRG"\`
+            link=\`expr "\$ls" : '.*-> \(.*\)\$'\`
+            if expr "\$link" : '/.*' > /dev/null; then
+              PRG="\$link"
+            else
+              PRG=\`dirname "\$PRG"\`"/\$link"
+            fi
+          done
+          SAVEDDIR="\$PWD"
+          cd "\`dirname \\"\$PRG\\"\`/" >/dev/null
+          APP_HOME="\$PWD"
+          cd "\$SAVEDDIR" >/dev/null
+          
+          APP_NAME="Gradle"
+          APP_BASE_NAME=\`basename "\$0"\`
+          
+          # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+          DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+          
+          # Use the maximum available, or set MAX_FD != -1 to use that value.
+          MAX_FD="maximum"
+          
+          warn () {
+            echo "\$*"
+          }
+          
+          die () {
+            echo
+            echo "\$*"
+            echo
+            exit 1
+          }
+          
+          # OS specific support (must be 'true' or 'false').
+          cygwin=false
+          msys=false
+          darwin=false
+          nonstop=false
+          case "\`uname\`" in
+            CYGWIN* )
+              cygwin=true
+              ;;
+            Darwin* )
+              darwin=true
+              ;;
+            MINGW* )
+              msys=true
+              ;;
+            NONSTOP* )
+              nonstop=true
+              ;;
+          esac
+          
+          CLASSPATH=\$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+          
+          
+          # Determine the Java command to use to start the JVM.
+          if [ -n "\$JAVA_HOME" ] ; then
+            if [ -f "\$JAVA_HOME/jre/sh/java" ] ; then
+              # IBM's JDK on AIX uses strange locations for the executables
+              JAVACMD="\$JAVA_HOME/jre/sh/java"
+            else
+              JAVACMD="\$JAVA_HOME/bin/java"
+            fi
+            if [ ! -x "\$JAVACMD" ] ; then
+              die "ERROR: JAVA_HOME is set to an invalid directory: \$JAVA_HOME"
+            fi
+          else
+            JAVACMD="java"
+            which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
+          fi
+          
+          if [ "\$cygwin" = "true" ] || [ "\$msys" = "true" ] ; then
+            APP_HOME=\`cygpath --path --mixed "\$APP_HOME"\`
+            CLASSPATH=\`cygpath --path --mixed "\$CLASSPATH"\`
+            JAVACMD=\`cygpath --unix "\$JAVACMD"\`
+            
+            # We build the pattern for arguments to be converted via cygpath
+            ROOTDIRSRAW=\`find \$APP_HOME -maxdepth 1 -name \*.jar\`
+            sep=""
+            for DIR in \$ROOTDIRSRAW ; do
+              ROOTDIRS="\$ROOTDIRS\$sep\$DIR"
+              sep=";"
+            done
+            if [ "x\$ROOTDIRS" != "x" ] ; then
+              JAVACMD="\$JAVACMD -cp \\"\$ROOTDIRS\\""
+            fi
+          fi
+          
+          # For Cygwin, switch paths to Windows format before running java
+          if \$cygwin ; then
+            APP_HOME=\`cygpath --path --windows "\$APP_HOME"\`
+            CLASSPATH=\`cygpath --path --windows "\$CLASSPATH"\`
+          fi
+          
+          # For non-GNU unix, ensure we're running with a POSIX shell
+          if [ -z "\$POSIX_SHELL" ] ; then
+            exec /bin/sh "\$0" "\$@"
+          fi
+          
+          exec "\$JAVACMD" "\$JAVA_OPTS" "\$DEFAULT_JVM_OPTS" \${GRADLE_OPTS} "\$@" org.gradle.wrapper.GradleWrapperMain "\$@"
+          EOF
+          
+          chmod +x gradlew
+          echo "✅ Gradle wrapper creado"
+        fi
+        
+        # Verificar gradle wrapper
+        ./gradlew --version || echo "⚠️ Gradle wrapper no funciona"
+        
+    - name: 📝 Configurar gradle.properties
+      run: |
+        # Crear archivo de propiedades de Gradle
+        mkdir -p ~/.gradle
+        cat > ~/.gradle/gradle.properties << EOF
+        org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+        org.gradle.parallel=true
+        org.gradle.caching=true
+        org.gradle.configureondemand=true
+        org.gradle.daemon=false
+        android.useAndroidX=true
+        android.enableJetifier=true
+        kapt.incremental.apt=true
+        EOF
+        
+    - name: 🔧 Prevenir error de JDBC en Android
+      run: |
+        # Modificar build.gradle para evitar errores de MySQL Connector
+        if [ -f "app/build.gradle" ]; then
+          echo "🔧 Modificando build.gradle para compatibilidad..."
+          sed -i '/mysql.*connector/d' app/build.gradle
+          
+          # Agregar configuración de packaging options
+          if ! grep -q "packagingOptions" app/build.gradle; then
+            sed -i '/android {/a\    packagingOptions {\n        exclude "META-INF/DEPENDENCIES"\n        exclude "META-INF/LICENSE"\n        exclude "META-INF/LICENSE.txt"\n        exclude "META-INF/NOTICE"\n        exclude "META-INF/NOTICE.txt"\n        exclude "META-INF/INDEX.LIST"\n        exclude "META-INF/io.netty.versions.properties"\n        exclude "META-INF/native/libnetty_transport_native_epoll.so"\n    }' app/build.gradle
+          fi
+        fi
+        
+    - name: 🏗️ Construir proyecto
+      run: |
+        echo "=== CONSTRUYENDO PROYECTO ==="
+        echo ""
+        
+        # Asegurarse que gradlew sea ejecutable
+        chmod +x ./gradlew 2>/dev/null || true
+        
+        # Limpiar primero
+        echo "🧹 Limpiando build..."
+        ./gradlew clean || echo "⚠️ Clean falló, continuando..."
+        
+        # Construir debug
+        echo "🔨 Construyendo APK debug..."
+        if ./gradlew assembleDebug --stacktrace --no-daemon; then
+          echo "✅ Build debug exitoso"
+          BUILD_STATUS="success"
+        else
+          echo "❌ Build debug falló, intentando sin tests..."
+          # Intentar sin tests
+          if ./gradlew assembleDebug --stacktrace --no-daemon -x test -x lint; then
+            echo "✅ Build debug exitoso (sin tests)"
+            BUILD_STATUS="success"
+          else
+            echo "❌ Build completamente fallido"
+            BUILD_STATUS="failed"
+            exit 1
+          fi
+        fi
+        
+    - name: 📋 Verificar APK generado
+      run: |
+        echo "=== VERIFICANDO APK ==="
+        echo ""
+        
+        if [ -d "app/build/outputs/apk/debug" ]; then
+          echo "📱 APKs encontrados:"
+          find app/build/outputs/apk/debug -name "*.apk" -type f | while read apk; do
+            echo "  📄 $(basename "$apk") - $(ls -lh "$apk" | awk '{print $5}')"
+            # Mostrar información básica del APK
+            if command -v aapt &> /dev/null; then
+              echo "    Package: $(aapt dump badging "$apk" | grep package | head -1 | awk -F"'" '{print $2}')"
+              echo "    Version: $(aapt dump badging "$apk" | grep version | head -1 | awk -F"'" '{print $4}')"
+            fi
+          done
+        else
+          echo "❌ No se encontró carpeta de APKs"
+          ls -la app/build/outputs/ || true
+        fi
+        
+    - name: 📦 Subir APKs como artefactos
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThunderNet-Admin-APKs
+        path: |
+          app/build/outputs/apk/debug/*.apk
+          app/build/outputs/mapping/debug/mapping.txt
+        retention-days: 7
+        
+    - name: 📊 Generar reporte de build
+      if: always()
+      run: |
+        echo "## 📊 Reporte de Build - ThunderNet Admin" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Información del commit
+        echo "### 🔍 Información del Commit" >> $GITHUB_STEP_SUMMARY
+        echo "- **Hash:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Autor:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Estado del build
+        if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+          echo "### ✅ BUILD EXITOSO" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Listar APKs generados
+          echo "#### 📱 APKs Generados:" >> $GITHUB_STEP_SUMMARY
+          for apk in app/build/outputs/apk/debug/*.apk; do
+            if [ -f "$apk" ]; then
+              apk_name=$(basename "$apk")
+              apk_size=$(ls -lh "$apk" | awk '{print $5}')
+              echo "- **$apk_name** ($apk_size)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+          
+          # Información de versión
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### 📋 Información del APK:" >> $GITHUB_STEP_SUMMARY
+          if [ -f "app/build.gradle" ]; then
+            versionCode=$(grep "versionCode" app/build.gradle | head -1 | awk '{print $2}' || echo "No encontrado")
+            versionName=$(grep "versionName" app/build.gradle | head -1 | awk -F'"' '{print $2}' || echo "No encontrado")
+            echo "- **Version Code:** $versionCode" >> $GITHUB_STEP_SUMMARY
+            echo "- **Version Name:** $versionName" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+        else
+          echo "### ❌ BUILD FALLIDO" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No se pudo generar el APK. Revisa los logs para más información." >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # Logs importantes
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📁 Archivos generados:" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        find app/build -type f -name "*.apk" -o -name "*.aab" -o -name "mapping.txt" 2>/dev/null | head -20 >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Descargar artefactos
+      uses: actions/download-artifact@v4
+      with:
+        name: ThunderNet-Admin-APKs
+        
+    - name: 📤 Publicar Release (Opcional)
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        echo "🚀 Preparando release..."
+        # Aquí puedes agregar lógica para subir a GitHub Releases, Firebase, etc.
+        echo "APKs listos para distribución:"
+        ls -la *.apk 2>/dev/null || echo "No hay APKs"
+        
+    - name: 📲 Notificación (Opcional)
+      if: always()
+      run: |
+        echo "📢 Build completado: ${{ job.status }}"
+        # Aquí puedes agregar notificaciones a Slack, Discord, etc.

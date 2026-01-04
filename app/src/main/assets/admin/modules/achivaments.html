@@ -1,0 +1,480 @@
+<div class="achievements-module">
+    <div class="module-header">
+        <h2><i class="fas fa-trophy"></i> Gestión de Logros</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="showCreateAchievementModal()">
+                <i class="fas fa-plus"></i> Nuevo Logro
+            </button>
+            <button class="btn btn-secondary" onclick="refreshAchievements()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="achievements-container">
+        <div class="achievements-stats">
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FFD700;">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalAchievements">1,245</div>
+                    <div class="stat-label">Logros Totales</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #C0C0C0;">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="completedAchievements">89</div>
+                    <div class="stat-label">Completados (Promedio)</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #CD7F32;">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="rareAchievements">24</div>
+                    <div class="stat-label">Logros Raros</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #00AEFF;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="activePlayers">128</div>
+                    <div class="stat-label">Jugadores Activos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="achievements-search">
+            <div class="search-box">
+                <input type="text" id="achievementSearch" placeholder="Buscar logros por nombre..." 
+                       onkeyup="if(event.key === 'Enter') searchAchievements()">
+                <button class="btn btn-primary" onclick="searchAchievements()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="category-filter">
+                <select id="achievementCategory">
+                    <option value="all">Todas las categorías</option>
+                    <option value="quests">Quests</option>
+                    <option value="exploration">Exploración</option>
+                    <option value="pvp">PvP</option>
+                    <option value="dungeons">Mazmorras</option>
+                    <option value="raids">Raids</option>
+                    <option value="professions">Profesiones</option>
+                    <option value="events">Eventos</option>
+                </select>
+                
+                <select id="achievementPoints">
+                    <option value="all">Todos los puntos</option>
+                    <option value="0-10">0-10 puntos</option>
+                    <option value="11-25">11-25 puntos</option>
+                    <option value="26-50">26-50 puntos</option>
+                    <option value="51-100">51-100 puntos</option>
+                    <option value="101+">101+ puntos</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="achievements-grid" id="achievementsGrid">
+            <div class="achievement-card" data-category="quests" data-points="10">
+                <div class="achievement-icon">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <div class="achievement-content">
+                    <h4>Completar 100 Quests</h4>
+                    <p class="achievement-desc">Completa 100 quests en cualquier reino</p>
+                    <div class="achievement-meta">
+                        <span class="achievement-points">10 puntos</span>
+                        <span class="achievement-category quests">Quests</span>
+                    </div>
+                    <div class="achievement-stats">
+                        <span><i class="fas fa-users"></i> 45% completado</span>
+                    </div>
+                </div>
+                <div class="achievement-actions">
+                    <button class="btn-action" onclick="viewAchievement(1)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action" onclick="editAchievement(1)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="achievement-card" data-category="exploration" data-points="25">
+                <div class="achievement-icon">
+                    <i class="fas fa-map"></i>
+                </div>
+                <div class="achievement-content">
+                    <h4>Explorador de Azeroth</h4>
+                    <p class="achievement-desc">Descubre todas las zonas de Kalimdor y los Reinos del Este</p>
+                    <div class="achievement-meta">
+                        <span class="achievement-points">25 puntos</span>
+                        <span class="achievement-category exploration">Exploración</span>
+                    </div>
+                    <div class="achievement-stats">
+                        <span><i class="fas fa-users"></i> 12% completado</span>
+                    </div>
+                </div>
+                <div class="achievement-actions">
+                    <button class="btn-action" onclick="viewAchievement(2)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action" onclick="editAchievement(2)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="achievement-card rare" data-category="pvp" data-points="50">
+                <div class="achievement-icon">
+                    <i class="fas fa-crosshairs"></i>
+                </div>
+                <div class="achievement-content">
+                    <h4>Gladiador</h4>
+                    <p class="achievement-desc">Alcanza el rango de Gladiador en arena 3v3</p>
+                    <div class="achievement-meta">
+                        <span class="achievement-points">50 puntos</span>
+                        <span class="achievement-category pvp">PvP</span>
+                        <span class="rare-badge">Raro</span>
+                    </div>
+                    <div class="achievement-stats">
+                        <span><i class="fas fa-users"></i> 2% completado</span>
+                    </div>
+                </div>
+                <div class="achievement-actions">
+                    <button class="btn-action" onclick="viewAchievement(3)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action" onclick="editAchievement(3)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="achievement-card" data-category="dungeons" data-points="15">
+                <div class="achievement-icon">
+                    <i class="fas fa-dungeon"></i>
+                </div>
+                <div class="achievement-content">
+                    <h4>Mazmorras Épicas</h4>
+                    <p class="achievement-desc">Completa todas las mazmorras en modo heroico</p>
+                    <div class="achievement-meta">
+                        <span class="achievement-points">15 puntos</span>
+                        <span class="achievement-category dungeons">Mazmorras</span>
+                    </div>
+                    <div class="achievement-stats">
+                        <span><i class="fas fa-users"></i> 28% completado</span>
+                    </div>
+                </div>
+                <div class="achievement-actions">
+                    <button class="btn-action" onclick="viewAchievement(4)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action" onclick="editAchievement(4)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="achievement-details" id="achievementDetails" style="display: none; margin-top: 20px;">
+            <!-- Detalles del logro se cargarán aquí -->
+        </div>
+    </div>
+</div>
+
+<style>
+.achievements-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.achievements-search {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.category-filter {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-filter select {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.achievement-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.achievement-card.rare {
+    border-color: #FFD700;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), var(--card-bg));
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    color: var(--accent-blue);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 174, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievement-content {
+    flex: 1;
+}
+
+.achievement-content h4 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+
+.achievement-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.achievement-meta {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.achievement-points {
+    background: var(--accent-blue);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.achievement-category {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.achievement-category.quests { background: #4CAF50; color: white; }
+.achievement-category.exploration { background: #2196F3; color: white; }
+.achievement-category.pvp { background: #F44336; color: white; }
+.achievement-category.dungeons { background: #9C27B0; color: white; }
+
+.rare-badge {
+    background: #FFD700;
+    color: black;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.achievement-stats {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.achievement-stats i {
+    margin-right: 5px;
+}
+
+.achievement-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+</style>
+
+<script>
+function searchAchievements() {
+    const query = document.getElementById('achievementSearch').value;
+    const category = document.getElementById('achievementCategory').value;
+    const points = document.getElementById('achievementPoints').value;
+    
+    const achievements = document.querySelectorAll('.achievement-card');
+    achievements.forEach(ach => {
+        let show = true;
+        
+        if (query) {
+            const title = ach.querySelector('h4').textContent.toLowerCase();
+            const desc = ach.querySelector('.achievement-desc').textContent.toLowerCase();
+            if (!title.includes(query.toLowerCase()) && !desc.includes(query.toLowerCase())) {
+                show = false;
+            }
+        }
+        
+        if (category !== 'all' && ach.dataset.category !== category) {
+            show = false;
+        }
+        
+        if (points !== 'all') {
+            const [min, max] = points.split('-').map(p => p === '+' ? 1000 : parseInt(p));
+            const achPoints = parseInt(ach.dataset.points);
+            if (max === 1000) {
+                if (achPoints < min) show = false;
+            } else if (achPoints < min || achPoints > max) {
+                show = false;
+            }
+        }
+        
+        ach.style.display = show ? 'flex' : 'none';
+    });
+}
+
+function refreshAchievements() {
+    alert('Actualizando logros...');
+    // Actualizar estadísticas
+    document.getElementById('totalAchievements').textContent = Math.floor(Math.random() * 100) + 1200;
+    document.getElementById('completedAchievements').textContent = Math.floor(Math.random() * 10) + 85;
+    document.getElementById('rareAchievements').textContent = Math.floor(Math.random() * 5) + 20;
+    document.getElementById('activePlayers').textContent = Math.floor(Math.random() * 50) + 100;
+}
+
+function showCreateAchievementModal() {
+    alert('Mostrar modal para crear nuevo logro');
+}
+
+function viewAchievement(id) {
+    const detailsDiv = document.getElementById('achievementDetails');
+    detailsDiv.style.display = 'block';
+    detailsDiv.innerHTML = `
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Detalles del Logro</h3>
+                <button class="btn btn-secondary" onclick="document.getElementById('achievementDetails').style.display = 'none'">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            
+            <div class="achievement-detail-content">
+                <div class="detail-section">
+                    <h4>Información del Logro</h4>
+                    <div class="detail-row">
+                        <div class="detail-column">
+                            <p><strong>Nombre:</strong> Completar 100 Quests</p>
+                            <p><strong>ID:</strong> ${id}</p>
+                            <p><strong>Puntos:</strong> 10</p>
+                            <p><strong>Categoría:</strong> Quests</p>
+                        </div>
+                        <div class="detail-column">
+                            <p><strong>Rareza:</strong> Común</p>
+                            <p><strong>Icono:</strong> <i class="fas fa-scroll"></i></p>
+                            <p><strong>Fecha creación:</strong> 2023-01-15</p>
+                            <p><strong>Activo:</strong> Sí</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h4>Descripción</h4>
+                    <p>Completa 100 quests en cualquier reino del servidor. Las quests diarias no cuentan para este logro.</p>
+                </div>
+                
+                <div class="detail-section">
+                    <h4>Requisitos</h4>
+                    <ul>
+                        <li>Completar 100 quests distintas</li>
+                        <li>Quests deben ser de diferentes zonas</li>
+                        <li>No incluye quests diarias</li>
+                        <li>Logro cuenta por personaje</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h4>Estadísticas</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Jugadores completados:</div>
+                            <div class="stat-value">128 (45%)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Promedio tiempo:</div>
+                            <div class="stat-value">15 días</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Primera completación:</div>
+                            <div class="stat-value">2023-02-01</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Última completación:</div>
+                            <div class="stat-value">2024-01-14</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-actions">
+                    <button class="btn btn-primary" onclick="editAchievement(${id})">
+                        <i class="fas fa-edit"></i> Editar Logro
+                    </button>
+                    <button class="btn btn-secondary" onclick="awardAchievement(${id})">
+                        <i class="fas fa-gift"></i> Otorgar a Jugador
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewAchievementPlayers(${id})">
+                        <i class="fas fa-users"></i> Ver Jugadores
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function editAchievement(id) {
+    alert(`Editar logro ID: ${id}`);
+}
+
+function awardAchievement(id) {
+    const player = prompt('Nombre del jugador:');
+    if (player) {
+        alert(`Logro ${id} otorgado a ${player}`);
+    }
+}
+
+function viewAchievementPlayers(id) {
+    alert(`Mostrando jugadores con logro ${id}`);
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    refreshAchievements();
+});
+</script>

@@ -1,0 +1,234 @@
+<div class="accounts-module">
+    <div class="module-header">
+        <h2><i class="fas fa-users"></i> Gestión de Cuentas</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="showCreateAccountModal()">
+                <i class="fas fa-plus"></i> Nueva Cuenta
+            </button>
+            <button class="btn btn-secondary" onclick="refreshAccounts()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="filters-bar">
+        <div class="input-group" style="flex: 1;">
+            <input type="text" id="accountSearch" placeholder="Buscar por usuario, email o ID..." 
+                   onkeyup="if(event.key === 'Enter') searchAccounts(this.value)">
+        </div>
+        <select id="accountFilter" style="background: var(--card-bg); color: var(--text-primary); 
+               border: 1px solid var(--border-color); padding: 10px; border-radius: 5px;">
+            <option value="all">Todas las cuentas</option>
+            <option value="online">Online</option>
+            <option value="banned">Baneadas</option>
+            <option value="locked">Bloqueadas</option>
+            <option value="gm">GM Accounts</option>
+        </select>
+    </div>
+    
+    <div class="table-container">
+        <div class="table-header">
+            <h3 class="table-title">Cuentas Registradas</h3>
+            <div class="table-info">
+                <span id="accountCount">Total: 0 cuentas</span>
+            </div>
+        </div>
+        <div class="table-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <th>GM Level</th>
+                        <th>Estado</th>
+                        <th>Último Login</th>
+                        <th>IP</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="accountsTableBody">
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                            <i class="fas fa-database" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            No hay conexión a la base de datos
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-footer">
+            <div class="pagination">
+                <button class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
+                <span>Página 1 de 1</span>
+                <button class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.filters-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.table-footer {
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+}
+</style>
+
+<script>
+function searchAccounts(query) {
+    if (!query.trim()) {
+        loadAllAccounts();
+        return;
+    }
+    
+    // Simular búsqueda (en producción esto sería una consulta a la BD)
+    const mockData = [
+        { id: 1, username: 'admin', email: 'admin@thundernet.com', gmlevel: 3, 
+          status: 'Online', last_login: '2024-01-15 14:30', last_ip: '192.168.1.100' },
+        { id: 2, username: 'gamemaster', email: 'gm@thundernet.com', gmlevel: 2,
+          status: 'Offline', last_login: '2024-01-14 09:15', last_ip: '192.168.1.101' },
+        { id: 3, username: 'player1', email: 'player1@gmail.com', gmlevel: 0,
+          status: 'Online', last_login: '2024-01-15 16:45', last_ip: '192.168.1.102' }
+    ];
+    
+    const filtered = mockData.filter(acc => 
+        acc.username.includes(query) || 
+        acc.email.includes(query) || 
+        acc.id.toString() === query
+    );
+    
+    displayAccounts(filtered);
+}
+
+function loadAllAccounts() {
+    const mockData = [
+        { id: 1, username: 'admin', email: 'admin@thundernet.com', gmlevel: 3, 
+          status: 'Online', last_login: '2024-01-15 14:30', last_ip: '192.168.1.100' },
+        { id: 2, username: 'gamemaster', email: 'gm@thundernet.com', gmlevel: 2,
+          status: 'Offline', last_login: '2024-01-14 09:15', last_ip: '192.168.1.101' },
+        { id: 3, username: 'player1', email: 'player1@gmail.com', gmlevel: 0,
+          status: 'Online', last_login: '2024-01-15 16:45', last_ip: '192.168.1.102' },
+        { id: 4, username: 'player2', email: 'player2@hotmail.com', gmlevel: 0,
+          status: 'Banned', last_login: '2024-01-13 20:10', last_ip: '192.168.1.103' },
+        { id: 5, username: 'player3', email: 'player3@yahoo.com', gmlevel: 1,
+          status: 'Locked', last_login: '2024-01-12 11:25', last_ip: '192.168.1.104' }
+    ];
+    
+    displayAccounts(mockData);
+}
+
+function displayAccounts(accounts) {
+    const tbody = document.getElementById('accountsTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    accounts.forEach(account => {
+        const row = document.createElement('tr');
+        
+        // Determinar clase de estado
+        let statusClass = 'status-online';
+        let statusText = 'Online';
+        if (account.status === 'Offline') {
+            statusClass = 'status-offline';
+            statusText = 'Offline';
+        } else if (account.status === 'Banned') {
+            statusClass = 'status-pending';
+            statusText = 'Baneado';
+        } else if (account.status === 'Locked') {
+            statusClass = 'status-pending';
+            statusText = 'Bloqueado';
+        }
+        
+        row.innerHTML = `
+            <td>${account.id}</td>
+            <td><strong>${account.username}</strong></td>
+            <td>${account.email}</td>
+            <td>
+                <span class="status-badge ${account.gmlevel > 0 ? 'status-online' : ''}" 
+                      style="background: ${account.gmlevel > 0 ? 'rgba(0, 174, 255, 0.2)' : 'transparent'}; 
+                             color: ${account.gmlevel > 0 ? 'var(--accent-blue)' : 'var(--text-secondary)'};">
+                    ${account.gmlevel}
+                </span>
+            </td>
+            <td>
+                <span class="status-badge ${statusClass}">
+                    ${statusText}
+                </span>
+            </td>
+            <td>${account.last_login}</td>
+            <td><code>${account.last_ip}</code></td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="editAccount(${account.id})" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action" onclick="changePassword(${account.id})" title="Cambiar Contraseña">
+                        <i class="fas fa-key"></i>
+                    </button>
+                    <button class="btn-action" onclick="toggleBan(${account.id})" title="${account.status === 'Banned' ? 'Desbanear' : 'Banear'}">
+                        <i class="fas ${account.status === 'Banned' ? 'fa-unlock' : 'fa-ban'}"></i>
+                    </button>
+                    <button class="btn-action" onclick="deleteAccount(${account.id})" title="Eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    document.getElementById('accountCount').textContent = `Total: ${accounts.length} cuentas`;
+}
+
+// Funciones de acciones
+function editAccount(id) {
+    alert(`Editar cuenta ID: ${id}`);
+}
+
+function changePassword(id) {
+    const newPass = prompt('Ingresa nueva contraseña:');
+    if (newPass) {
+        alert(`Contraseña cambiada para cuenta ID: ${id}`);
+    }
+}
+
+function toggleBan(id) {
+    if (confirm('¿Estás seguro de cambiar el estado de ban?')) {
+        alert(`Estado de ban cambiado para cuenta ID: ${id}`);
+        refreshAccounts();
+    }
+}
+
+function deleteAccount(id) {
+    if (confirm('¿Estás seguro de eliminar esta cuenta?\nEsta acción no se puede deshacer.')) {
+        alert(`Cuenta ID: ${id} eliminada`);
+        refreshAccounts();
+    }
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    loadAllAccounts();
+});
+</script>

@@ -1,0 +1,469 @@
+<div class="bans-module">
+    <div class="module-header">
+        <h2><i class="fas fa-ban"></i> Sistema de Bans</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="showBanModal()">
+                <i class="fas fa-plus"></i> Nuevo Ban
+            </button>
+            <button class="btn btn-secondary" onclick="refreshBans()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="bans-container">
+        <div class="bans-stats">
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #F44336;">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="activeBans">24</div>
+                    <div class="stat-label">Bans Activos</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FF9800;">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="tempBans">12</div>
+                    <div class="stat-label">Temporales</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #4CAF50;">
+                    <i class="fas fa-unlock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="unbanned">45</div>
+                    <div class="stat-label">Desbaneados</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #2196F3;">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="ipBans">8</div>
+                    <div class="stat-label">IP Bans</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bans-filters">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterBans('active')">
+                    <i class="fas fa-ban"></i> Activos
+                </button>
+                <button class="filter-tab" onclick="filterBans('expired')">
+                    <i class="fas fa-clock"></i> Expirados
+                </button>
+                <button class="filter-tab" onclick="filterBans('permanent')">
+                    <i class="fas fa-infinity"></i> Permanentes
+                </button>
+                <button class="filter-tab" onclick="filterBans('ip')">
+                    <i class="fas fa-network-wired"></i> IP Bans
+                </button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="banSearch" placeholder="Buscar por usuario, IP o motivo..." 
+                       onkeyup="if(event.key === 'Enter') searchBans()">
+                <button class="btn btn-primary" onclick="searchBans()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="bans-table">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Lista de Bans</h3>
+                    <div class="table-info">
+                        <span id="banCount">Mostrando 24 bans activos</span>
+                    </div>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Usuario/IP</th>
+                                <th>Razón</th>
+                                <th>Administrador</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bansTableBody">
+                            <tr class="ban-active">
+                                <td><span class="ban-type account">Cuenta</span></td>
+                                <td><strong>player123</strong></td>
+                                <td>Uso de lenguaje ofensivo en chat</td>
+                                <td>Admin</td>
+                                <td>2024-01-10</td>
+                                <td>2024-01-20</td>
+                                <td><span class="status-badge status-online">Activo</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewBan(1)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="unban(1)">
+                                        <i class="fas fa-unlock"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="ban-permanent">
+                                <td><span class="ban-type account">Cuenta</span></td>
+                                <td><strong>hacker456</strong></td>
+                                <td>Uso de software de terceros</td>
+                                <td>System</td>
+                                <td>2024-01-05</td>
+                                <td>Permanente</td>
+                                <td><span class="status-badge status-online">Activo</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewBan(2)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="unban(2)">
+                                        <i class="fas fa-unlock"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="ban-ip">
+                                <td><span class="ban-type ip">IP</span></td>
+                                <td><strong>192.168.1.100</strong></td>
+                                <td>Múltiples cuentas baneadas</td>
+                                <td>Admin</td>
+                                <td>2024-01-12</td>
+                                <td>2024-02-12</td>
+                                <td><span class="status-badge status-online">Activo</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewBan(3)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="unban(3)">
+                                        <i class="fas fa-unlock"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="ban-expired">
+                                <td><span class="ban-type account">Cuenta</span></td>
+                                <td><strong>spammer789</strong></td>
+                                <td>Spam en chat general</td>
+                                <td>Moderator</td>
+                                <td>2024-01-01</td>
+                                <td>2024-01-08</td>
+                                <td><span class="status-badge status-offline">Expirado</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewBan(4)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="reban(4)">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div class="pagination">
+                        <button class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
+                        <span>Página 1 de 5</span>
+                        <button class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ban-details" id="banDetails" style="display: none; margin-top: 20px;">
+            <!-- Detalles del ban se cargarán aquí -->
+        </div>
+    </div>
+</div>
+
+<style>
+.bans-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.bans-filters {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filter-tab {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-tab:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.filter-tab.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+.bans-table {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.ban-active {
+    background: rgba(244, 67, 54, 0.05);
+}
+
+.ban-permanent {
+    background: rgba(156, 39, 176, 0.05);
+}
+
+.ban-ip {
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.ban-expired {
+    background: rgba(76, 175, 80, 0.05);
+    opacity: 0.7;
+}
+
+.ban-type {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.ban-type.account {
+    background: #F44336;
+    color: white;
+}
+
+.ban-type.ip {
+    background: #2196F3;
+    color: white;
+}
+
+.ban-details {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+</style>
+
+<script>
+function filterBans(filter) {
+    const bans = document.querySelectorAll('#bansTableBody tr');
+    const tabs = document.querySelectorAll('.filter-tab');
+    
+    // Cambiar pestaña activa
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    
+    // Filtrar bans
+    let visibleCount = 0;
+    bans.forEach(ban => {
+        switch(filter) {
+            case 'active':
+                ban.style.display = ban.classList.contains('ban-active') || 
+                                   ban.classList.contains('ban-permanent') || 
+                                   ban.classList.contains('ban-ip') ? '' : 'none';
+                break;
+            case 'expired':
+                ban.style.display = ban.classList.contains('ban-expired') ? '' : 'none';
+                break;
+            case 'permanent':
+                ban.style.display = ban.classList.contains('ban-permanent') ? '' : 'none';
+                break;
+            case 'ip':
+                ban.style.display = ban.classList.contains('ban-ip') ? '' : 'none';
+                break;
+        }
+        
+        if (ban.style.display !== 'none') visibleCount++;
+    });
+    
+    document.getElementById('banCount').textContent = `Mostrando ${visibleCount} bans`;
+}
+
+function searchBans() {
+    const query = document.getElementById('banSearch').value.toLowerCase();
+    const bans = document.querySelectorAll('#bansTableBody tr');
+    let visibleCount = 0;
+    
+    bans.forEach(ban => {
+        const text = ban.textContent.toLowerCase();
+        if (query && !text.includes(query)) {
+            ban.style.display = 'none';
+        } else {
+            ban.style.display = '';
+            visibleCount++;
+        }
+    });
+    
+    document.getElementById('banCount').textContent = `Mostrando ${visibleCount} bans`;
+}
+
+function refreshBans() {
+    alert('Actualizando lista de bans...');
+    // Actualizar estadísticas
+    document.getElementById('activeBans').textContent = Math.floor(Math.random() * 5) + 22;
+    document.getElementById('tempBans').textContent = Math.floor(Math.random() * 3) + 10;
+    document.getElementById('unbanned').textContent = Math.floor(Math.random() * 10) + 40;
+    document.getElementById('ipBans').textContent = Math.floor(Math.random() * 2) + 6;
+}
+
+function showBanModal() {
+    alert('Mostrar modal para crear nuevo ban');
+}
+
+function viewBan(id) {
+    const detailsDiv = document.getElementById('banDetails');
+    detailsDiv.style.display = 'block';
+    detailsDiv.innerHTML = `
+        <div class="ban-detail-header">
+            <h3>Detalles del Ban ID: ${id}</h3>
+            <button class="btn btn-secondary" onclick="document.getElementById('banDetails').style.display = 'none'">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
+        </div>
+        
+        <div class="ban-detail-content">
+            <div class="ban-info-section">
+                <h4>Información del Ban</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Tipo:</strong> <span class="ban-type account">Cuenta</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Usuario:</strong> player123
+                    </div>
+                    <div class="info-item">
+                        <strong>ID de Cuenta:</strong> 12345
+                    </div>
+                    <div class="info-item">
+                        <strong>IP:</strong> 192.168.1.100
+                    </div>
+                    <div class="info-item">
+                        <strong>Administrador:</strong> Admin
+                    </div>
+                    <div class="info-item">
+                        <strong>Fecha Creación:</strong> 2024-01-10 14:30:22
+                    </div>
+                    <div class="info-item">
+                        <strong>Fecha Inicio:</strong> 2024-01-10
+                    </div>
+                    <div class="info-item">
+                        <strong>Fecha Fin:</strong> 2024-01-20
+                    </div>
+                    <div class="info-item">
+                        <strong>Estado:</strong> <span class="status-badge status-online">Activo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ban-reason-section">
+                <h4>Razón del Ban</h4>
+                <div class="reason-box">
+                    <p>Uso de lenguaje ofensivo en el chat general. El usuario fue advertido 3 veces previamente pero continuó con el comportamiento inapropiado.</p>
+                </div>
+            </div>
+            
+            <div class="ban-evidence-section">
+                <h4>Evidencia</h4>
+                <div class="evidence-box">
+                    <pre>[14:25:33] player123: malditos noobs no saben jugar
+[14:26:45] player123: todos son unos inútiles
+[14:28:12] player123: deberían banear a este server de mierda</pre>
+                </div>
+            </div>
+            
+            <div class="ban-actions-section">
+                <h4>Acciones</h4>
+                <div class="actions-grid">
+                    <button class="btn btn-primary" onclick="unban(${id})">
+                        <i class="fas fa-unlock"></i> Remover Ban
+                    </button>
+                    <button class="btn btn-secondary" onclick="extendBan(${id})">
+                        <i class="fas fa-calendar-plus"></i> Extender
+                    </button>
+                    <button class="btn btn-secondary" onclick="changeBanReason(${id})">
+                        <i class="fas fa-edit"></i> Cambiar Razón
+                    </button>
+                    <button class="btn btn-secondary" onclick="appealBan(${id})">
+                        <i class="fas fa-gavel"></i> Ver Apelación
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function unban(id) {
+    if (confirm('¿Remover este ban?')) {
+        alert(`Ban ${id} removido`);
+        refreshBans();
+        document.getElementById('banDetails').style.display = 'none';
+    }
+}
+
+function reban(id) {
+    if (confirm('¿Re-aplicar este ban?')) {
+        alert(`Ban ${id} re-aplicado`);
+        refreshBans();
+    }
+}
+
+function extendBan(id) {
+    const days = prompt('Extender por cuántos días?:', '7');
+    if (days) {
+        alert(`Ban ${id} extendido por ${days} días`);
+    }
+}
+
+function changeBanReason(id) {
+    const reason = prompt('Nueva razón:', '');
+    if (reason) {
+        alert(`Razón del ban ${id} cambiada`);
+    }
+}
+
+function appealBan(id) {
+    alert(`Mostrando apelación del ban ${id}`);
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    refreshBans();
+    filterBans('active');
+});
+</script>

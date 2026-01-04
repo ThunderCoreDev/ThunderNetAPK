@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thundernet.web">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.thundernet.admin">
 
-    <!-- Permisos de INTERNET (CRÍTICO) -->
+    <!-- Permisos de Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <!-- Para WebView moderno -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    
+    <!-- Permisos de Almacenamiento -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="ThunderNet WoW"
+        android:label="ThunderNet Admin"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ThunderNetWeb"
-        android:usesCleartextTraffic="true"> <!-- IMPORTANTE para http:// -->
+        android:theme="@style/Theme.ThunderNetAdmin"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         
+        <!-- Actividad Splash -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.ThunderNetAdmin.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
+        <!-- Actividad Login -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ThunderNetAdmin.Login" />
+        
+        <!-- Actividad Principal -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

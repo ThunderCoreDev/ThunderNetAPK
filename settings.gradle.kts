@@ -10,8 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
-rootProject.name = "ThunderNet"
-include(":app")
+rootProject.name = "ThunderNet Admin App"
+include ':app'

@@ -1,0 +1,331 @@
+<div class="players-module">
+    <div class="module-header">
+        <h2><i class="fas fa-user-shield"></i> Gestión de Jugadores</h2>
+    </div>
+    
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" id="playerSearchInput" placeholder="Buscar personaje por nombre..." 
+                   onkeyup="if(event.key === 'Enter') searchCharacter()">
+            <button class="btn btn-primary" onclick="searchCharacter()">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+        
+        <div class="search-filters">
+            <select id="realmFilter">
+                <option value="all">Todos los reinos</option>
+                <option value="1">Reino 1</option>
+                <option value="2">Reino 2</option>
+            </select>
+            <select id="classFilter">
+                <option value="all">Todas las clases</option>
+                <option value="1">Guerrero</option>
+                <option value="2">Paladín</option>
+                <option value="3">Cazador</option>
+                <!-- Más clases -->
+            </select>
+            <select id="levelFilter">
+                <option value="all">Todos los niveles</option>
+                <option value="1-10">Nivel 1-10</option>
+                <option value="11-20">Nivel 11-20</option>
+                <option value="21-30">Nivel 21-30</option>
+                <option value="31-40">Nivel 31-40</option>
+                <option value="41-50">Nivel 41-50</option>
+                <option value="51-60">Nivel 51-60</option>
+                <option value="61-70">Nivel 61-70</option>
+                <option value="71-80">Nivel 71-80</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="table-header">
+            <h3 class="table-title">Personajes</h3>
+            <div class="table-info">
+                <span id="playerCount">Total: 0 personajes</span>
+            </div>
+        </div>
+        <div class="table-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Raza</th>
+                        <th>Clase</th>
+                        <th>Nivel</th>
+                        <th>Reino</th>
+                        <th>Guild</th>
+                        <th>Estado</th>
+                        <th>Última Conexión</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="playersTableBody">
+                    <!-- Los datos se cargarán aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="playerDetails" style="display: none; margin-top: 30px;">
+        <!-- Detalles del personaje se cargarán aquí -->
+    </div>
+</div>
+
+<style>
+.search-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+.search-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.search-filters select {
+    flex: 1;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btn-action {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+</style>
+
+<script>
+// Datos de ejemplo para razas y clases
+const races = {
+    1: 'Humano', 2: 'Orco', 3: 'Enano', 4: 'Elfo de la Noche', 5: 'No Muerto',
+    6: 'Tauren', 7: 'Gnomo', 8: 'Troll', 9: 'Goblin', 10: 'Elfo de Sangre',
+    11: 'Draenei'
+};
+
+const classes = {
+    1: 'Guerrero', 2: 'Paladín', 3: 'Cazador', 4: 'Pícaro', 5: 'Sacerdote',
+    6: 'Caballero de la Muerte', 7: 'Chamán', 8: 'Mago', 9: 'Brujo', 10: 'Monje',
+    11: 'Druida'
+};
+
+// Datos de ejemplo
+const mockCharacters = [
+    { guid: 1, name: 'Arthas', race: 1, class: 2, level: 80, realm: 1, 
+      guild: 'La Mano de Plata', online: true, last_login: '2024-01-15 14:30' },
+    { guid: 2, name: 'Thrall', race: 2, class: 7, level: 80, realm: 1,
+      guild: 'Horda', online: false, last_login: '2024-01-14 09:15' },
+    { guid: 3, name: 'Jaina', race: 1, class: 8, level: 80, realm: 1,
+      guild: 'Kirin Tor', online: true, last_login: '2024-01-15 16:45' },
+    { guid: 4, name: 'Sylvanas', race: 10, class: 3, level: 80, realm: 2,
+      guild: 'Renegados', online: true, last_login: '2024-01-15 12:20' },
+    { guid: 5, name: 'Illidan', race: 4, class: 9, level: 70, realm: 2,
+      guild: 'Illidari', online: false, last_login: '2024-01-13 20:10' }
+];
+
+function searchCharacter() {
+    const query = document.getElementById('playerSearchInput').value.toLowerCase();
+    const realmFilter = document.getElementById('realmFilter').value;
+    const classFilter = document.getElementById('classFilter').value;
+    const levelFilter = document.getElementById('levelFilter').value;
+    
+    let filtered = mockCharacters;
+    
+    // Aplicar filtros
+    if (query) {
+        filtered = filtered.filter(char => char.name.toLowerCase().includes(query));
+    }
+    
+    if (realmFilter !== 'all') {
+        filtered = filtered.filter(char => char.realm.toString() === realmFilter);
+    }
+    
+    if (classFilter !== 'all') {
+        filtered = filtered.filter(char => char.class.toString() === classFilter);
+    }
+    
+    if (levelFilter !== 'all') {
+        const [min, max] = levelFilter.split('-').map(Number);
+        filtered = filtered.filter(char => char.level >= min && char.level <= max);
+    }
+    
+    displayCharacters(filtered);
+}
+
+function displayCharacters(characters) {
+    const tbody = document.getElementById('playersTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    characters.forEach(char => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td><strong>${char.name}</strong></td>
+            <td>${races[char.race] || 'Desconocido'}</td>
+            <td>${classes[char.class] || 'Desconocido'}</td>
+            <td>
+                <span class="status-badge" style="background: rgba(0, 174, 255, 0.2); color: var(--accent-blue);">
+                    ${char.level}
+                </span>
+            </td>
+            <td>Reino ${char.realm}</td>
+            <td>${char.guild || '-'}</td>
+            <td>
+                <span class="status-badge ${char.online ? 'status-online' : 'status-offline'}">
+                    ${char.online ? 'Online' : 'Offline'}
+                </span>
+            </td>
+            <td>${char.last_login}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="viewCharacterDetails(${char.guid})" title="Ver Detalles">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action" onclick="editCharacter(${char.guid})" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action" onclick="resurrectCharacter(${char.guid})" title="Revivir">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="btn-action" onclick="teleportCharacter(${char.guid})" title="Teleportar">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <button class="btn-action" onclick="sendMessageToCharacter(${char.guid})" title="Enviar Mensaje">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    document.getElementById('playerCount').textContent = `Total: ${characters.length} personajes`;
+}
+
+function viewCharacterDetails(guid) {
+    const character = mockCharacters.find(c => c.guid === guid);
+    if (!character) return;
+    
+    const detailsDiv = document.getElementById('playerDetails');
+    detailsDiv.style.display = 'block';
+    detailsDiv.innerHTML = `
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Detalles del Personaje: ${character.name}</h3>
+                <button class="btn btn-secondary" onclick="document.getElementById('playerDetails').style.display = 'none'">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            <div class="character-details">
+                <div class="detail-row">
+                    <div class="detail-column">
+                        <h4>Información Básica</h4>
+                        <p><strong>Raza:</strong> ${races[character.race]}</p>
+                        <p><strong>Clase:</strong> ${classes[character.class]}</p>
+                        <p><strong>Nivel:</strong> ${character.level}</p>
+                        <p><strong>Guild:</strong> ${character.guild || 'Ninguna'}</p>
+                    </div>
+                    <div class="detail-column">
+                        <h4>Estadísticas</h4>
+                        <p><strong>Vida:</strong> ${character.level * 100}</p>
+                        <p><strong>Maná:</strong> ${character.level * 50}</p>
+                        <p><strong>Oro:</strong> ${Math.floor(Math.random() * 10000)}</p>
+                        <p><strong>Tiempo jugado:</strong> ${Math.floor(Math.random() * 1000)} horas</p>
+                    </div>
+                    <div class="detail-column">
+                        <h4>Ubicación</h4>
+                        <p><strong>Zona:</strong> Ciudad de Ventormenta</p>
+                        <p><strong>Mapa:</strong> 0</p>
+                        <p><strong>Coordenadas:</strong> X: 123, Y: 456, Z: 789</p>
+                        <p><strong>Reino:</strong> ${character.realm}</p>
+                    </div>
+                </div>
+                <div class="detail-actions" style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="editCharacter(${guid})">
+                        <i class="fas fa-edit"></i> Editar Personaje
+                    </button>
+                    <button class="btn btn-secondary" onclick="resurrectCharacter(${guid})">
+                        <i class="fas fa-heart"></i> Revivir
+                    </button>
+                    <button class="btn btn-secondary" onclick="restoreCharacter(${guid})">
+                        <i class="fas fa-undo"></i> Restaurar
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Funciones de acciones
+function editCharacter(guid) {
+    alert(`Editar personaje GUID: ${guid}`);
+}
+
+function resurrectCharacter(guid) {
+    if (confirm('¿Revivir este personaje?')) {
+        alert(`Personaje ${guid} revivido`);
+    }
+}
+
+function teleportCharacter(guid) {
+    const location = prompt('Ingresa coordenadas (map x y z) o nombre de zona:');
+    if (location) {
+        alert(`Teleportando personaje ${guid} a: ${location}`);
+    }
+}
+
+function sendMessageToCharacter(guid) {
+    const message = prompt('Ingresa mensaje para el jugador:');
+    if (message) {
+        alert(`Mensaje enviado a personaje ${guid}: ${message}`);
+    }
+}
+
+function restoreCharacter(guid) {
+    if (confirm('¿Restaurar este personaje eliminado?')) {
+        alert(`Personaje ${guid} restaurado`);
+    }
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    displayCharacters(mockCharacters);
+});
+</script>

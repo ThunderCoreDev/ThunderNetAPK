@@ -1,0 +1,534 @@
+<div class="tickets-module">
+    <div class="module-header">
+        <h2><i class="fas fa-ticket-alt"></i> Sistema de Tickets</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="refreshTickets()">
+                <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+            <button class="btn btn-secondary" onclick="exportTickets()">
+                <i class="fas fa-download"></i> Exportar
+            </button>
+        </div>
+    </div>
+    
+    <div class="tickets-container">
+        <div class="tickets-stats">
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #F44336;">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="openTickets">12</div>
+                    <div class="stat-label">Abiertos</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #2196F3;">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="pendingTickets">8</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #4CAF50;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="closedTickets">45</div>
+                    <div class="stat-label">Cerrados</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FF9800;">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="assignedTickets">5</div>
+                    <div class="stat-label">Asignados a mí</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tickets-filters">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterTickets('all')">
+                    <i class="fas fa-list"></i> Todos
+                </button>
+                <button class="filter-tab" onclick="filterTickets('open')">
+                    <i class="fas fa-exclamation-circle"></i> Abiertos
+                </button>
+                <button class="filter-tab" onclick="filterTickets('assigned')">
+                    <i class="fas fa-user-tie"></i> Asignados
+                </button>
+                <button class="filter-tab" onclick="filterTickets('closed')">
+                    <i class="fas fa-check-circle"></i> Cerrados
+                </button>
+            </div>
+            
+            <div class="filter-options">
+                <select id="ticketCategory">
+                    <option value="all">Todas las categorías</option>
+                    <option value="bug">Reporte de Bug</option>
+                    <option value="support">Soporte</option>
+                    <option value="report">Reporte de Jugador</option>
+                    <option value="other">Otro</option>
+                </select>
+                
+                <select id="ticketPriority">
+                    <option value="all">Todas las prioridades</option>
+                    <option value="low">Baja</option>
+                    <option value="medium">Media</option>
+                    <option value="high">Alta</option>
+                    <option value="critical">Crítica</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="tickets-list">
+            <div class="ticket-item" data-id="1" data-status="open" data-priority="high">
+                <div class="ticket-header">
+                    <div class="ticket-meta">
+                        <span class="ticket-id">#TICKET-001</span>
+                        <span class="ticket-category bug">Bug</span>
+                        <span class="ticket-priority high">Alta</span>
+                    </div>
+                    <div class="ticket-time">
+                        <i class="fas fa-clock"></i> Hace 2 horas
+                    </div>
+                </div>
+                
+                <div class="ticket-content">
+                    <h4 class="ticket-title">NPC no aparece en zona de misiones</h4>
+                    <p class="ticket-description">
+                        El NPC "Marshal McBride" no aparece en la posición indicada en Elwynn Forest...
+                    </p>
+                    
+                    <div class="ticket-info">
+                        <span><i class="fas fa-user"></i> Jugador: Arthas</span>
+                        <span><i class="fas fa-globe"></i> Reino: Lordaeron</span>
+                        <span><i class="fas fa-tag"></i> Estado: <span class="status-open">Abierto</span></span>
+                    </div>
+                </div>
+                
+                <div class="ticket-actions">
+                    <button class="btn btn-primary" onclick="viewTicket(1)">
+                        <i class="fas fa-eye"></i> Ver
+                    </button>
+                    <button class="btn btn-secondary" onclick="assignTicket(1)">
+                        <i class="fas fa-user-tie"></i> Asignar
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeTicket(1)">
+                        <i class="fas fa-check"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="ticket-item" data-id="2" data-status="assigned" data-priority="medium">
+                <div class="ticket-header">
+                    <div class="ticket-meta">
+                        <span class="ticket-id">#TICKET-002</span>
+                        <span class="ticket-category support">Soporte</span>
+                        <span class="ticket-priority medium">Media</span>
+                    </div>
+                    <div class="ticket-time">
+                        <i class="fas fa-clock"></i> Hace 1 día
+                    </div>
+                </div>
+                
+                <div class="ticket-content">
+                    <h4 class="ticket-title">No puedo recuperar mi contraseña</h4>
+                    <p class="ticket-description">
+                        El sistema de recuperación de contraseña no envía el correo...
+                    </p>
+                    
+                    <div class="ticket-info">
+                        <span><i class="fas fa-user"></i> Jugador: Jaina</span>
+                        <span><i class="fas fa-globe"></i> Reino: Lordaeron</span>
+                        <span><i class="fas fa-tag"></i> Estado: <span class="status-assigned">Asignado</span></span>
+                        <span><i class="fas fa-user-tie"></i> Asignado a: Admin</span>
+                    </div>
+                </div>
+                
+                <div class="ticket-actions">
+                    <button class="btn btn-primary" onclick="viewTicket(2)">
+                        <i class="fas fa-eye"></i> Ver
+                    </button>
+                    <button class="btn btn-secondary" onclick="respondTicket(2)">
+                        <i class="fas fa-reply"></i> Responder
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeTicket(2)">
+                        <i class="fas fa-check"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="ticket-item" data-id="3" data-status="closed" data-priority="low">
+                <div class="ticket-header">
+                    <div class="ticket-meta">
+                        <span class="ticket-id">#TICKET-003</span>
+                        <span class="ticket-category report">Reporte</span>
+                        <span class="ticket-priority low">Baja</span>
+                    </div>
+                    <div class="ticket-time">
+                        <i class="fas fa-clock"></i> Hace 3 días
+                    </div>
+                </div>
+                
+                <div class="ticket-content">
+                    <h4 class="ticket-title">Jugador usando lenguaje inapropiado</h4>
+                    <p class="ticket-description">
+                        El jugador "XxDarkLordxX" está usando lenguaje ofensivo en el chat general...
+                    </p>
+                    
+                    <div class="ticket-info">
+                        <span><i class="fas fa-user"></i> Jugador: Thrall</span>
+                        <span><i class="fas fa-globe"></i> Reino: Orgrimmar</span>
+                        <span><i class="fas fa-tag"></i> Estado: <span class="status-closed">Cerrado</span></span>
+                    </div>
+                </div>
+                
+                <div class="ticket-actions">
+                    <button class="btn btn-primary" onclick="viewTicket(3)">
+                        <i class="fas fa-eye"></i> Ver
+                    </button>
+                    <button class="btn btn-secondary" onclick="reopenTicket(3)">
+                        <i class="fas fa-redo"></i> Reabrir
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket-details" id="ticketDetails" style="display: none; margin-top: 20px;">
+            <!-- Detalles del ticket se cargarán aquí -->
+        </div>
+    </div>
+</div>
+
+<style>
+.tickets-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tickets-filters {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filter-tab {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-tab:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.filter-tab.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+.tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ticket-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid var(--border-color);
+}
+
+.ticket-item[data-priority="high"] {
+    border-left-color: #F44336;
+}
+
+.ticket-item[data-priority="medium"] {
+    border-left-color: #FF9800;
+}
+
+.ticket-item[data-priority="low"] {
+    border-left-color: #4CAF50;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ticket-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.ticket-id {
+    font-weight: bold;
+    color: var(--accent-blue);
+}
+
+.ticket-category {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.ticket-category.bug {
+    background: #F44336;
+    color: white;
+}
+
+.ticket-category.support {
+    background: #2196F3;
+    color: white;
+}
+
+.ticket-category.report {
+    background: #9C27B0;
+    color: white;
+}
+
+.ticket-priority {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.ticket-priority.high {
+    background: #F44336;
+    color: white;
+}
+
+.ticket-priority.medium {
+    background: #FF9800;
+    color: white;
+}
+
+.ticket-priority.low {
+    background: #4CAF50;
+    color: white;
+}
+
+.ticket-time {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.ticket-content {
+    margin-bottom: 15px;
+}
+
+.ticket-title {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+
+.ticket-description {
+    color: var(--text-secondary);
+    margin: 0 0 15px 0;
+    line-height: 1.5;
+}
+
+.ticket-info {
+    display: flex;
+    gap: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.ticket-info i {
+    margin-right: 5px;
+}
+
+.status-open {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.status-assigned {
+    color: #2196F3;
+    font-weight: bold;
+}
+
+.status-closed {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.ticket-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ticket-details {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+</style>
+
+<script>
+function filterTickets(filter) {
+    const tickets = document.querySelectorAll('.ticket-item');
+    const tabs = document.querySelectorAll('.filter-tab');
+    
+    // Cambiar pestaña activa
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    
+    // Filtrar tickets
+    tickets.forEach(ticket => {
+        switch(filter) {
+            case 'all':
+                ticket.style.display = 'block';
+                break;
+            case 'open':
+                ticket.style.display = ticket.dataset.status === 'open' ? 'block' : 'none';
+                break;
+            case 'assigned':
+                ticket.style.display = ticket.dataset.status === 'assigned' ? 'block' : 'none';
+                break;
+            case 'closed':
+                ticket.style.display = ticket.dataset.status === 'closed' ? 'block' : 'none';
+                break;
+        }
+    });
+}
+
+function refreshTickets() {
+    alert('Actualizando tickets...');
+    // Actualizar estadísticas
+    document.getElementById('openTickets').textContent = Math.floor(Math.random() * 5) + 10;
+    document.getElementById('pendingTickets').textContent = Math.floor(Math.random() * 3) + 8;
+    document.getElementById('closedTickets').textContent = Math.floor(Math.random() * 10) + 45;
+    document.getElementById('assignedTickets').textContent = Math.floor(Math.random() * 2) + 5;
+}
+
+function exportTickets() {
+    alert('Exportando tickets a CSV...');
+}
+
+function viewTicket(id) {
+    const detailsDiv = document.getElementById('ticketDetails');
+    detailsDiv.style.display = 'block';
+    detailsDiv.innerHTML = `
+        <div class="ticket-detail-header">
+            <h3>Ticket #TICKET-00${id}</h3>
+            <button class="btn btn-secondary" onclick="document.getElementById('ticketDetails').style.display = 'none'">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
+        </div>
+        
+        <div class="ticket-conversation">
+            <div class="message user">
+                <div class="message-header">
+                    <strong>Jugador: Arthas</strong>
+                    <span class="message-time">Hace 2 horas</span>
+                </div>
+                <div class="message-content">
+                    <p>El NPC "Marshal McBride" no aparece en la posición indicada en Elwynn Forest. He reiniciado el juego varias veces y sigue sin aparecer.</p>
+                </div>
+            </div>
+            
+            <div class="message admin">
+                <div class="message-header">
+                    <strong>Admin: ThunderNet Support</strong>
+                    <span class="message-time">Hace 1 hora</span>
+                </div>
+                <div class="message-content">
+                    <p>Hola Arthas, hemos verificado el problema. El NPC fue movido temporalmente debido a un evento. Se encuentra ahora en las coordenadas X: 45, Y: 67 en Elwynn Forest.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket-response">
+            <h4>Responder al ticket:</h4>
+            <textarea id="ticketResponse" rows="4" placeholder="Escribe tu respuesta aquí..."></textarea>
+            <div style="margin-top: 10px;">
+                <button class="btn btn-primary" onclick="sendResponse(${id})">
+                    <i class="fas fa-paper-plane"></i> Enviar Respuesta
+                </button>
+                <button class="btn btn-secondary" onclick="closeTicket(${id})">
+                    <i class="fas fa-check"></i> Cerrar Ticket
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function assignTicket(id) {
+    if (confirm('¿Asignar este ticket a ti mismo?')) {
+        alert(`Ticket ${id} asignado`);
+        refreshTickets();
+    }
+}
+
+function respondTicket(id) {
+    viewTicket(id);
+}
+
+function closeTicket(id) {
+    if (confirm('¿Cerrar este ticket?')) {
+        alert(`Ticket ${id} cerrado`);
+        refreshTickets();
+        document.getElementById('ticketDetails').style.display = 'none';
+    }
+}
+
+function reopenTicket(id) {
+    if (confirm('¿Reabrir este ticket?')) {
+        alert(`Ticket ${id} reabierto`);
+        refreshTickets();
+    }
+}
+
+function sendResponse(id) {
+    const response = document.getElementById('ticketResponse').value;
+    if (response.trim()) {
+        alert(`Respuesta enviada para ticket ${id}`);
+        document.getElementById('ticketDetails').style.display = 'none';
+    } else {
+        alert('Por favor escribe una respuesta');
+    }
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    refreshTickets();
+    filterTickets('all');
+});
+</script>

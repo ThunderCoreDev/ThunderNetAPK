@@ -1,0 +1,468 @@
+<div class="items-module">
+    <div class="module-header">
+        <h2><i class="fas fa-cube"></i> Gestión de Items</h2>
+        <div class="module-actions">
+            <button class="btn btn-primary" onclick="showCreateItemModal()">
+                <i class="fas fa-plus"></i> Nuevo Item
+            </button>
+            <button class="btn btn-secondary" onclick="refreshItems()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="importItems()">
+                <i class="fas fa-upload"></i> Importar
+            </button>
+        </div>
+    </div>
+    
+    <div class="items-container">
+        <div class="items-filters">
+            <div class="search-box">
+                <input type="text" id="itemSearch" placeholder="Buscar items por nombre o ID..." 
+                       onkeyup="if(event.key === 'Enter') searchItems()">
+                <button class="btn btn-primary" onclick="searchItems()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="filter-options">
+                <select id="itemQuality">
+                    <option value="all">Todas las calidades</option>
+                    <option value="poor">Pobre (Gris)</option>
+                    <option value="common">Común (Blanco)</option>
+                    <option value="uncommon">Poco Común (Verde)</option>
+                    <option value="rare">Raro (Azul)</option>
+                    <option value="epic">Épico (Morado)</option>
+                    <option value="legendary">Legendario (Naranja)</option>
+                </select>
+                
+                <select id="itemType">
+                    <option value="all">Todos los tipos</option>
+                    <option value="weapon">Armas</option>
+                    <option value="armor">Armadura</option>
+                    <option value="consumable">Consumibles</option>
+                    <option value="material">Materiales</option>
+                    <option value="quest">Quest</option>
+                    <option value="misc">Misceláneo</option>
+                </select>
+                
+                <select id="itemLevel">
+                    <option value="all">Todos los niveles</option>
+                    <option value="1-10">Nivel 1-10</option>
+                    <option value="11-20">Nivel 11-20</option>
+                    <option value="21-30">Nivel 21-30</option>
+                    <option value="31-40">Nivel 31-40</option>
+                    <option value="41-50">Nivel 41-50</option>
+                    <option value="51-60">Nivel 51-60</option>
+                    <option value="61-70">Nivel 61-70</option>
+                    <option value="71-80">Nivel 71-80</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="items-stats">
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FFFFFF;">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalItems">45,678</div>
+                    <div class="stat-label">Items Totales</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FFD700;">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="epicItems">1,245</div>
+                    <div class="stat-label">Items Épicos</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #FF6B6B;">
+                    <i class="fas fa-sword"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="weaponItems">8,912</div>
+                    <div class="stat-label">Armas</div>
+                </div>
+            </div>
+            <div class="stat-card small">
+                <div class="stat-icon" style="color: #4ECDC4;">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="armorItems">15,678</div>
+                    <div class="stat-label">Armaduras</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="items-content">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Items del Servidor</h3>
+                    <div class="table-info">
+                        <span id="itemCount">Mostrando 50 items</span>
+                    </div>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Calidad</th>
+                                <th>Tipo</th>
+                                <th>Nivel</th>
+                                <th>Precio Venta</th>
+                                <th>Drop Rate</th>
+                                <th>En Uso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <tr>
+                                <td>25</td>
+                                <td>
+                                    <div class="item-cell">
+                                        <span class="item-icon"><i class="fas fa-sword"></i></span>
+                                        <strong>Espada Corta</strong>
+                                    </div>
+                                </td>
+                                <td><span class="quality-common">Común</span></td>
+                                <td>Arma - Espada</td>
+                                <td>1</td>
+                                <td>1c</td>
+                                <td>15%</td>
+                                <td><span class="status-badge status-online">128</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewItem(25)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="editItem(25)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="giveItem(25)">
+                                        <i class="fas fa-gift"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>35</td>
+                                <td>
+                                    <div class="item-cell">
+                                        <span class="item-icon"><i class="fas fa-shield-alt"></i></span>
+                                        <strong>Escudo de Aprendiz</strong>
+                                    </div>
+                                </td>
+                                <td><span class="quality-uncommon">Poco Común</span></td>
+                                <td>Armadura - Escudo</td>
+                                <td>5</td>
+                                <td>25c</td>
+                                <td>8%</td>
+                                <td><span class="status-badge status-online">89</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewItem(35)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="editItem(35)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="giveItem(35)">
+                                        <i class="fas fa-gift"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>118</td>
+                                <td>
+                                    <div class="item-cell">
+                                        <span class="item-icon epic"><i class="fas fa-gem"></i></span>
+                                        <strong>Anillo de Poder</strong>
+                                    </div>
+                                </td>
+                                <td><span class="quality-epic">Épico</span></td>
+                                <td>Joyeria - Anillo</td>
+                                <td>60</td>
+                                <td>50g</td>
+                                <td>0.5%</td>
+                                <td><span class="status-badge status-online">12</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewItem(118)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="editItem(118)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="giveItem(118)">
+                                        <i class="fas fa-gift"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2592</td>
+                                <td>
+                                    <div class="item-cell">
+                                        <span class="item-icon legendary"><i class="fas fa-crown"></i></span>
+                                        <strong>Ashbringer</strong>
+                                    </div>
+                                </td>
+                                <td><span class="quality-legendary">Legendario</span></td>
+                                <td>Arma - Espada 2M</td>
+                                <td>80</td>
+                                <td>5000g</td>
+                                <td>0.01%</td>
+                                <td><span class="status-badge status-offline">1</span></td>
+                                <td>
+                                    <button class="btn-action" onclick="viewItem(2592)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="editItem(2592)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action" onclick="giveItem(2592)">
+                                        <i class="fas fa-gift"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div class="pagination">
+                        <button class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
+                        <span>Página 1 de 100</span>
+                        <button class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item-details" id="itemDetails" style="display: none; margin-top: 20px;">
+                <!-- Detalles del item se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.items-filters {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-options select {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.items-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.item-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-icon.epic {
+    background: rgba(155, 39, 176, 0.3);
+    color: #9C27B0;
+}
+
+.item-icon.legendary {
+    background: rgba(255, 152, 0, 0.3);
+    color: #FF9800;
+}
+
+.quality-common {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.quality-uncommon {
+    color: #1EFF00;
+    font-weight: bold;
+}
+
+.quality-epic {
+    color: #A335EE;
+    font-weight: bold;
+}
+
+.quality-legendary {
+    color: #FF8000;
+    font-weight: bold;
+}
+
+.item-details {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+</style>
+
+<script>
+function searchItems() {
+    const query = document.getElementById('itemSearch').value;
+    const quality = document.getElementById('itemQuality').value;
+    const type = document.getElementById('itemType').value;
+    const level = document.getElementById('itemLevel').value;
+    
+    alert(`Buscando items: ${query} | Calidad: ${quality} | Tipo: ${type} | Nivel: ${level}`);
+}
+
+function refreshItems() {
+    alert('Actualizando items...');
+    // Actualizar estadísticas
+    document.getElementById('totalItems').textContent = Math.floor(Math.random() * 1000) + 45000;
+    document.getElementById('epicItems').textContent = Math.floor(Math.random() * 50) + 1200;
+    document.getElementById('weaponItems').textContent = Math.floor(Math.random() * 200) + 8800;
+    document.getElementById('armorItems').textContent = Math.floor(Math.random() * 300) + 15500;
+}
+
+function importItems() {
+    alert('Importar items desde archivo');
+}
+
+function showCreateItemModal() {
+    alert('Mostrar modal para crear nuevo item');
+}
+
+function viewItem(id) {
+    const detailsDiv = document.getElementById('itemDetails');
+    detailsDiv.style.display = 'block';
+    detailsDiv.innerHTML = `
+        <div class="item-detail-header">
+            <h3>Detalles del Item ID: ${id}</h3>
+            <button class="btn btn-secondary" onclick="document.getElementById('itemDetails').style.display = 'none'">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
+        </div>
+        
+        <div class="item-detail-content">
+            <div class="item-preview">
+                <div class="item-icon large">
+                    <i class="fas fa-sword"></i>
+                </div>
+                <div class="item-info">
+                    <h4 class="item-name">Espada Corta</h4>
+                    <div class="item-meta">
+                        <span class="quality-common">Común</span>
+                        <span>ID: ${id}</span>
+                        <span>Nivel: 1</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item-sections">
+                <div class="section">
+                    <h5>Estadísticas</h5>
+                    <div class="stats-grid">
+                        <div class="stat">Daño: 2-4</div>
+                        <div class="stat">Velocidad: 2.0</div>
+                        <div class="stat">DPS: 1.5</div>
+                        <div class="stat">Durabilidad: 20/20</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h5>Información</h5>
+                    <div class="info-grid">
+                        <div class="info"><strong>Tipo:</strong> Arma - Espada</div>
+                        <div class="info"><strong>Sub-tipo:</strong> Una mano</div>
+                        <div class="info"><strong>Clases:</strong> Guerrero, Paladín, Pícaro</div>
+                        <div class="info"><strong>Razas:</strong> Todas</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h5>Comercio</h5>
+                    <div class="trade-grid">
+                        <div class="trade"><strong>Precio Compra:</strong> 10c</div>
+                        <div class="trade"><strong>Precio Venta:</strong> 1c</div>
+                        <div class="trade"><strong>Vendedor:</strong> Marshal McBride</div>
+                        <div class="trade"><strong>Stack:</strong> 1</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h5>Drop</h5>
+                    <div class="drop-grid">
+                        <div class="drop"><strong>Drop Rate:</strong> 15%</div>
+                        <div class="drop"><strong>NPC:</strong> Lobo Joven</div>
+                        <div class="drop"><strong>Zona:</strong> Elwynn Forest</div>
+                        <div class="drop"><strong>En Uso:</strong> 128 jugadores</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item-actions">
+                <button class="btn btn-primary" onclick="editItem(${id})">
+                    <i class="fas fa-edit"></i> Editar Item
+                </button>
+                <button class="btn btn-secondary" onclick="giveItem(${id})">
+                    <i class="fas fa-gift"></i> Dar a Jugador
+                </button>
+                <button class="btn btn-secondary" onclick="spawnItem(${id})">
+                    <i class="fas fa-plus-circle"></i> Spawn en Mundo
+                </button>
+                <button class="btn btn-secondary" onclick="viewItemHistory(${id})">
+                    <i class="fas fa-history"></i> Historial
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function editItem(id) {
+    alert(`Editar item ID: ${id}`);
+}
+
+function giveItem(id) {
+    const player = prompt('Nombre del jugador:');
+    const quantity = prompt('Cantidad:', '1');
+    if (player && quantity) {
+        alert(`Item ${id} dado a ${player} x${quantity}`);
+    }
+}
+
+function spawnItem(id) {
+    const coords = prompt('Coordenadas (map x y z):', '0 0 0 0');
+    if (coords) {
+        alert(`Item ${id} spawn en ${coords}`);
+    }
+}
+
+function viewItemHistory(id) {
+    alert(`Historial del item ${id}`);
+}
+</script>

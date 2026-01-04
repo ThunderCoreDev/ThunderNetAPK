@@ -1,0 +1,184 @@
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Panel de Control</h1>
+        <div class="dashboard-actions">
+            <button class="btn btn-primary" onclick="checkConnection()">
+                <i class="fas fa-sync-alt"></i> Verificar Conexión
+            </button>
+        </div>
+    </div>
+    
+    <div class="stats-cards">
+        <div class="stat-card">
+            <i class="fas fa-server module-icon"></i>
+            <div class="stat-value" id="serverStatus">Offline</div>
+            <div class="stat-label">Estado del Servidor</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-users module-icon"></i>
+            <div class="stat-value" id="totalAccounts">0</div>
+            <div class="stat-label">Cuentas Totales</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-user-shield module-icon"></i>
+            <div class="stat-value" id="onlinePlayers">0</div>
+            <div class="stat-label">Jugadores Online</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-globe module-icon"></i>
+            <div class="stat-value" id="activeRealms">0</div>
+            <div class="stat-label">Reinos Activos</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-shield-alt module-icon"></i>
+            <div class="stat-value" id="activeBans">0</div>
+            <div class="stat-label">Bans Activos</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-ticket-alt module-icon"></i>
+            <div class="stat-value" id="openTickets">0</div>
+            <div class="stat-label">Tickets Abiertos</div>
+        </div>
+    </div>
+    
+    <div class="dashboard-grid">
+        <div class="dashboard-section">
+            <h3><i class="fas fa-exclamation-circle"></i> Alertas del Sistema</h3>
+            <div class="alert-list" id="systemAlerts">
+                <div class="alert-item warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Sin conexión a la base de datos</span>
+                </div>
+                <div class="alert-item info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Servidor de reinos offline</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-section">
+            <h3><i class="fas fa-chart-line"></i> Estadísticas Rápidas</h3>
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <span>Nuevas cuentas (24h)</span>
+                    <strong>12</strong>
+                </div>
+                <div class="quick-stat">
+                    <span>Personajes creados (24h)</span>
+                    <strong>24</strong>
+                </div>
+                <div class="quick-stat">
+                    <span>Items obtenidos (24h)</span>
+                    <strong>1,245</strong>
+                </div>
+                <div class="quick-stat">
+                    <span>Comandos ejecutados (24h)</span>
+                    <strong>89</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h2 style="margin: 30px 0 20px; color: var(--accent-blue);">Acciones Rápidas</h2>
+    <div class="quick-actions">
+        <button class="btn btn-primary" onclick="loadModule('commands')">
+            <i class="fas fa-terminal"></i> Ejecutar Comando
+        </button>
+        <button class="btn btn-secondary" onclick="loadModule('accounts')">
+            <i class="fas fa-user-plus"></i> Crear Cuenta
+        </button>
+        <button class="btn btn-secondary" onclick="loadModule('bans')">
+            <i class="fas fa-ban"></i> Gestionar Bans
+        </button>
+        <button class="btn btn-secondary" onclick="loadModule('logs')">
+            <i class="fas fa-clipboard-list"></i> Ver Logs
+        </button>
+    </div>
+</div>
+
+<style>
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.dashboard-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dashboard-section h3 {
+    color: var(--accent-blue);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(255, 152, 0, 0.1);
+    border-left: 3px solid var(--warning);
+}
+
+.alert-item.warning {
+    background: rgba(255, 152, 0, 0.1);
+    border-left-color: var(--warning);
+}
+
+.alert-item.info {
+    background: rgba(0, 174, 255, 0.1);
+    border-left-color: var(--accent-blue);
+}
+
+.alert-item i {
+    color: var(--warning);
+}
+
+.alert-item.info i {
+    color: var(--accent-blue);
+}
+
+.quick-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quick-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.quick-stat:last-child {
+    border-bottom: none;
+}
+
+.quick-stat strong {
+    font-size: 1.2rem;
+    color: var(--accent-blue);
+}
+
+.quick-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+</style>
