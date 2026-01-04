@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    // Agrega el plugin de Kotlin Parcelize si usas @Parcelize
-    // id 'kotlin-parcelize'
 }
 
 android {
@@ -18,10 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         
-        // Para JDBC y métodos > 64K
         multiDexEnabled true
-        
-        // Para VectorDrawable
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -30,41 +25,27 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            debuggable true
-        }
     }
     
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        
-        // Para usar nuevas APIs de Java
         coreLibraryDesugaringEnabled true
     }
     
     kotlinOptions {
         jvmTarget = '1.8'
         
-        // Para usar nuevas funciones de Kotlin
+        // CORREGIDO: Opciones actualizadas
         freeCompilerArgs += [
-            '-Xopt-in=kotlin.RequiresOptIn',
-            '-Xjvm-default=enable'
+            '-opt-in=kotlin.RequiresOptIn',
+            '-Xjvm-default=all'  // Cambiado de 'enable' a 'all'
         ]
     }
     
     buildFeatures {
         viewBinding true
-        // Si necesitas Data Binding
-        // dataBinding true
-        // Si necesitas Compose
-        // compose true
     }
-    
-    // Para Compose (si lo usas)
-    // composeOptions {
-    //     kotlinCompilerExtensionVersion '1.5.4'
-    // }
     
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -72,127 +53,53 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/INDEX.LIST'
-        exclude 'META-INF/io.netty.versions.properties'
-        exclude 'META-INF/ASL2.0'
-        
-        // Para MySQL Connector
         pickFirst 'META-INF/LICENSE.txt'
         pickFirst 'META-INF/NOTICE.txt'
     }
 }
 
 dependencies {
-    // ====== CORE ANDROID ======
+    // CORE
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'  // Actualizado a 1.11.0
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     
-    // ====== DEPENDENCIAS FALTANTES (para los errores) ======
-    
-    // 1. Para Preferences (PreferenceManager)
-    implementation 'androidx.preference:preference-ktx:1.2.1'
-    
-    // 2. Para Lifecycle y ViewModel
+    // LIFECYCLE
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.7.0'
     
-    // 3. Para Activity y Fragment KTX
-    implementation 'androidx.activity:activity-ktx:1.8.2'
-    implementation 'androidx.fragment:fragment-ktx:1.6.2'
-    
-    // 4. Para Navigation Component (si usas)
+    // NAVIGATION
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.6'
     
-    // ====== WEB Y NETWORK ======
+    // PREFERENCES
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    
+    // WEB
     implementation 'androidx.webkit:webkit:1.9.0'
     
-    // Para HTTP requests (si usas)
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    
-    // ====== DATABASE Y STORAGE ======
-    // Room Database (recomendado en lugar de JDBC directo)
-    // implementation 'androidx.room:room-runtime:2.6.1'
-    // implementation 'androidx.room:room-ktx:2.6.1'
-    // kapt 'androidx.room:room-compiler:2.6.1'
-    
-    // SQLite (nativo de Android)
-    implementation 'androidx.sqlite:sqlite-ktx:2.4.0'
-    
-    // MySQL Connector (ALTERNATIVA MÁS COMPATIBLE)
-    // La versión 5.1.49 puede dar problemas en Android, usa esta:
+    // DATABASE
     implementation 'com.mysql:mysql-connector-j:8.2.0'
-    // O esta versión más ligera:
-    // implementation 'com.github.mysql:mysql-connector-java:8.0.33'
     
-    // ====== SEGURIDAD Y CIFRADO ======
+    // SECURITY
     implementation 'commons-codec:commons-codec:1.16.0'
-    
-    // Android Security Crypto
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
-    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha06'
     
-    // ====== JSON ======
+    // JSON
     implementation 'org.json:json:20230227'
-    implementation 'com.google.code.gson:gson:2.10.1'
     
-    // ====== COROUTINES ======
+    // COROUTINES
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
     
-    // ====== MULTIDEX ======
+    // MULTIDEX
     implementation 'androidx.multidex:multidex:2.0.1'
     
-    // ====== DESUGARING (para nuevas APIs de Java en Android antiguo) ======
+    // DESUGARING
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     
-    // ====== UI Y ANIMACIONES ======
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    
-    // ====== IMAGENES ======
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-    
-    // ====== LOGGING ======
-    implementation 'com.jakewharton.timber:timber:5.0.1'
-    
-    // ====== TESTING ======
+    // TESTING
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test:rules:1.5.2'
-    
-    // ====== DEPURACIÓN ======
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
-}
-
-// Si tienes problemas con la versión de Kotlin
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        // Para evitar el warning de inline classes
-        freeCompilerArgs += '-Xinline-classes'
-    }
-}
-
-configurations {
-    // Para resolver conflictos de MySQL Connector
-    all {
-        exclude group: 'com.google.android', module: 'android'
-        resolutionStrategy {
-            // Forzar versiones específicas si hay conflictos
-            force 'androidx.core:core-ktx:1.12.0'
-            force 'com.google.android.material:material:1.11.0'
-            
-            // Preferir nuestras versiones sobre las transitivas
-            preferProjectModules()
-        }
-    }
 }
