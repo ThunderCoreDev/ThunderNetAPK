@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.security.MessageDigest
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.*
@@ -15,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class MainActivity : AppCompatActivity() {
@@ -205,12 +205,43 @@ class MainActivity : AppCompatActivity() {
     
     private fun sha256(input: String): String {
         return try {
-            val digest = java.security.MessageDigest.getInstance("SHA-256")
+            val digest = MessageDigest.getInstance("SHA-256")
             val hash = digest.digest(input.toByteArray(Charsets.UTF_8))
             hash.joinToString("") { "%02x".format(it) }
         } catch (e: NoSuchAlgorithmException) {
             // Fallback simple (no usar en producción)
+            e.printStackTrace()
             input.hashCode().toString()
         }
+    }
+}
+
+// Clase WebAppInterface si la necesitas
+class WebAppInterface(private val activity: MainActivity) {
+    @android.webkit.JavascriptInterface
+    fun logout() {
+        activity.runOnUiThread {
+            activity.logout()
+        }
+    }
+    
+    @android.webkit.JavascriptInterface
+    fun showToast(message: String) {
+        activity.runOnUiThread {
+            activity.showToast(message)
+        }
+    }
+    
+    @android.webkit.JavascriptInterface
+    fun getServerConfig(): String {
+        // Devuelve configuración del servidor como JSON
+        return """{
+            "ip": "localhost",
+            "databases": {
+                "auth": "auth",
+                "characters": "characters", 
+                "world": "world"
+            }
+        }"""
     }
 }

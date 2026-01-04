@@ -1,19 +1,16 @@
 package com.thundernet.admin
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import android.view.WindowManager
 import android.webkit.*
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class LoginActivity : AppCompatActivity() {
     
@@ -133,14 +130,16 @@ class LoginActivity : AppCompatActivity() {
     
     private fun sha256(input: String): String {
         return try {
-            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            val digest = MessageDigest.getInstance("SHA-256")
+            val bytes = digest.digest(input.toByteArray(Charsets.UTF_8))
             bytes.joinToString("") { "%02x".format(it) }
-        } catch (e: Exception) {
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
             input.hashCode().toString()
         }
     }
     
-    fun loginSuccess() {
+    private fun loginSuccess() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

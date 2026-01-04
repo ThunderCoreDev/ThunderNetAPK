@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import com.thundernet.admin.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             // Esperar 3 segundos y cargar WebView
             Handler(Looper.getMainLooper()).postDelayed({
                 loadWebView()
-            }, 7000) // 7 segundos para ver mejor las animaciones
+            }, 3000)
             
         } catch (e: Exception) {
             Log.e(TAG, "Error en onCreate: ${e.message}")
@@ -315,7 +316,6 @@ class MainActivity : AppCompatActivity() {
                 textSize = 18f
                 gravity = Gravity.CENTER
                 setPadding(0, 24.dpToPx(), 0, 16.dpToPx())
-                typeface = android.graphics.Typeface.DEFAULT_BOLD
             }
             
             // PERSONALIZACIÓN: Fondo del diálogo
@@ -383,7 +383,6 @@ class MainActivity : AppCompatActivity() {
                 text = "⚙️ Configurar URL del servidor"
                 setTextColor(Color.parseColor("#00B4FF")) // Azul eléctrico
                 textSize = 18f
-                typeface = android.graphics.Typeface.DEFAULT_BOLD
                 gravity = Gravity.CENTER
                 setPadding(0, 0, 0, 16.dpToPx())
             }
