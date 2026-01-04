@@ -140,7 +140,7 @@ class LoginActivity : AppCompatActivity() {
     }
     
     private fun loginSuccess() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, WebActivity::class.java))
         finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }

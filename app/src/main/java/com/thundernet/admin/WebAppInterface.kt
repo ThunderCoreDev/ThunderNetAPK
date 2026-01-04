@@ -18,7 +18,7 @@ class WebAppInterface(private val context: Context) {
     
     @JavascriptInterface
     fun logout() {
-        (context as MainActivity).logout()
+        (context as WebActivity).logout()
     }
     
     @JavascriptInterface
@@ -57,9 +57,9 @@ class WebAppInterface(private val context: Context) {
             editor.putString("ra_port", json.optString("ra_port", "3443"))
             editor.apply()
             
-            (context as MainActivity).showToast("Configuración guardada")
+            (context as WebActivity).showToast("Configuración guardada")
         } catch (e: Exception) {
-            (context as MainActivity).showToast("Error: ${e.message}")
+            (context as WebActivity).showToast("Error: ${e.message}")
         }
     }
     

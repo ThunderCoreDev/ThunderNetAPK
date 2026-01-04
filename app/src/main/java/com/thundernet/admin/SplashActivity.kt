@@ -28,11 +28,11 @@ class SplashActivity : AppCompatActivity() {
         
         if (isFirstRun) {
             // Ir directamente a MainActivity para configurar cuenta
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, WebActivity::class.java))
         } else {
             val isLoggedIn = prefs.getBoolean("is_logged_in", false)
             val destination = if (isLoggedIn) {
-                MainActivity::class.java
+                WebActivity::class.java
             } else {
                 LoginActivity::class.java
             }

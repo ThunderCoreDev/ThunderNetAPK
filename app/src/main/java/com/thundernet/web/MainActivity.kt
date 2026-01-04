@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.thundernet.admin.R
 
-class MainActivity : AppCompatActivity() {
+class WebActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private lateinit var splashLayout: View
