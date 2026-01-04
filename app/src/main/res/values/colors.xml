@@ -1,36 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores de Material Design (obligatorios) -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- ... tus colores existentes ... -->
 
-    <!-- Colores personalizados ThunderNet / Battlenet -->
-    <color name="primary_dark">#0A1128</color>
-    <color name="secondary_dark">#1C2B45</color>
-    <color name="accent_blue">#00AEFF</color>
-    <color name="accent_blue_dark">#0066CC</color>
-    <color name="accent_blue_light">#33CCFF</color>
-    
-    <!-- Textos -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#8FA3BF</color>
-    <color name="text_muted">#5D7290</color>
-    
-    <!-- Bordes y fondos -->
-    <color name="border_color">#2A3F5F</color>
-    <color name="card_bg">#0B1622</color>
-    
-    <!-- Estados -->
-    <color name="success">#4CAF50</color>
-    <color name="warning">#FF9800</color>
-    <color name="danger">#F44336</color>
-    <color name="info">#2196F3</color>
-    
     <!-- Colores Battlenet (los que faltaban) -->
     <color name="battlenet_text_primary">#FFFFFF</color>
     <color name="battlenet_text_secondary">#8FA3BF</color>
@@ -41,6 +12,10 @@
     <color name="battlenet_blue_light">#33CCFF</color>
     <color name="battlenet_border">#2A3F5F</color>
     <color name="battlenet_card">#0B1622</color>
+    
+    <!-- AÑADE ESTAS DOS LÍNEAS QUE FALTAN -->
+    <color name="battlenet_medium_blue">@color/battlenet_blue_dark</color>
+    <color name="battlenet_electric_blue_light">@color/battlenet_blue_light</color>
     
     <!-- Aliases para compatibilidad -->
     <color name="battlenet_primary">@color/accent_blue</color>
