@@ -112,4 +112,11 @@
     <color name="colorControlHighlight">#33FFFFFF</color>
     <color name="colorControlNormal">#FFFFFF</color>
     <color name="colorButtonNormal">#1C2B45</color>
+    
+        <!-- Colores BattleNet -->
+    <color name="battlenettextprimary">#FFFFFF</color>
+    <color name="battlenettextsecondary">#CCCCCC</color>
+    <color name="battlenettextmuted">#888888</color>
+    <color name="battlenet_border">#444444</color>
+    <color name="battlenet_card">#222222</color>
 </resources>
