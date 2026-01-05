@@ -27,7 +27,7 @@ class WebActivity : AppCompatActivity() {
     // ✅ CONSTANTE TAG definida DENTRO de la clase
     companion object {
         private const val TAG = "WebActivity"
-        private const val ASSET_PATH = "file:///android_asset/web/index.html"
+        private const val ASSET_PATH = "file:///android_asset/admin/index.html"
     }
 
     private lateinit var webView: WebView
