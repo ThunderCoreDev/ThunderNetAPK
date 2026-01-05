@@ -1,6 +1,7 @@
 package com.thundernet.admin
 
 import android.content.Context
+import com.thundernet.web.WebActivity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.webkit.JavascriptInterface

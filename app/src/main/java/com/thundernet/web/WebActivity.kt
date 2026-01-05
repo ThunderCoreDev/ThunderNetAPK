@@ -396,7 +396,7 @@ class WebActivity : AppCompatActivity() {
                 
                 // Usar el drawable si existe, sino usar color sólido
                 try {
-                    background = ContextCompat.getDrawable(this@MainActivity, R.drawable.edittext_background)
+                    background = ContextCompat.getDrawable(this@WebActivity, R.drawable.edittext_background)
                 } catch (e: Exception) {
                     setBackgroundColor(Color.parseColor("#0A1428"))
                 }
