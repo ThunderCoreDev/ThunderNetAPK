@@ -6,33 +6,32 @@
     <!-- Permisos de Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     
-    <!-- Permisos de Almacenamiento (opcional, solo si necesitas acceso a archivos) -->
+    <!-- Permisos de Almacenamiento (opcionales, comenta si no los necesitas) -->
+    <!--
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     
-    <!-- Para Android 13+ (API 33+) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    -->
 
-    <!-- Para mejor manejo de red -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="ThunderNet Admin"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ThunderNetWeb"  <!-- Cambiado a ThunderNetWeb -->
+        android:theme="@style/Theme.ThunderNetWeb"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
         tools:targetApi="33">
         
-        <!-- Actividad Splash -->
+        <!-- Actividad Splash (LAUNCHER) -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -50,7 +49,7 @@
             android:name=".LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.ThunderNetWeb"
+            android:theme="@style/Theme.ThunderNetWeb.Login"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         
         <!-- Actividad Principal ADMIN -->
@@ -61,8 +60,9 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         
-        <!-- Actividad WebView (antes web/MainActivity) -->
-        <!-- OPCION 1: Si renombraste a WebViewActivity en el paquete admin -->
+        <!-- ELIGE UNA SOLA OPCIÓN para WebViewActivity, NO LAS TRES: -->
+        
+        <!-- OPCIÓN A: Si WebViewActivity está en el paquete principal -->
         <activity
             android:name=".WebViewActivity"
             android:exported="false"
@@ -70,16 +70,18 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         
-        <!-- OPCION 2: Si mantienes la actividad en paquete web pero renombrada -->
+        <!-- 
+        OPCIÓN B: Si WebViewActivity está en el paquete web (comenta la anterior)
         <activity
             android:name=".web.WebViewActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
+        -->
         
-        <!-- OPCION 3: Si mantienes el nombre MainActivity en paquete web (NO RECOMENDADO) -->
         <!-- 
+        OPCIÓN C: Si mantienes MainActivity en paquete web (NO RECOMENDADO - comenta las anteriores)
         <activity
             android:name=".web.MainActivity"
             android:exported="false"
@@ -87,13 +89,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         -->
-        
-        <!-- Servicios y receptores si los necesitas -->
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="false" />
-            
+
     </application>
 
 </manifest>
