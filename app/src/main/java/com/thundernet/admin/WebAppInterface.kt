@@ -18,9 +18,15 @@ class WebAppInterface(private val context: Context) {
     private var connection: Connection? = null
     
     @JavascriptInterface
-    fun logout() {
-        (context as WebActivity).logout()
+fun logout() {
+    try {
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        Toast.makeText(context, "Error al cerrar sesión: ${e.message}", Toast.LENGTH_SHORT).show()
     }
+}
     
     @JavascriptInterface
     fun showToast(message: String) {
@@ -45,24 +51,24 @@ class WebAppInterface(private val context: Context) {
     }
     
     @JavascriptInterface
-    fun saveServerConfig(config: String) {
-        try {
-            val json = JSONObject(config)
-            val editor = prefs.edit()
-            editor.putString("server_ip", json.optString("ip", "localhost"))
-            editor.putString("server_port", json.optString("port", "3306"))
-            editor.putString("auth_db", json.optString("auth_db", "auth"))
-            editor.putString("chars_db", json.optString("chars_db", "characters"))
-            editor.putString("world_db", json.optString("world_db", "world"))
-            editor.putString("soap_port", json.optString("soap_port", "7878"))
-            editor.putString("ra_port", json.optString("ra_port", "3443"))
-            editor.apply()
-            
-            (context as WebActivity).showToast("Configuración guardada")
-        } catch (e: Exception) {
-            (context as WebActivity).showToast("Error: ${e.message}")
-        }
+fun saveServerConfig(config: String) {
+    try {
+        val json = JSONObject(config)
+        val editor = prefs.edit()
+        editor.putString("server_ip", json.optString("ip", "localhost"))
+        editor.putString("server_port", json.optString("port", "3306"))
+        editor.putString("auth_db", json.optString("auth_db", "auth"))
+        editor.putString("chars_db", json.optString("chars_db", "characters"))
+        editor.putString("world_db", json.optString("world_db", "world"))
+        editor.putString("soap_port", json.optString("soap_port", "7878"))
+        editor.putString("ra_port", json.optString("ra_port", "3443"))
+        editor.apply()
+
+        Toast.makeText(context, "Configuración guardada", Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        Toast.makeText(context, "Error al guardar configuración: ${e.message}", Toast.LENGTH_SHORT).show()
     }
+}
     
     @JavascriptInterface
     fun testDatabaseConnection(): String {
