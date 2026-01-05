@@ -60,36 +60,14 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         
-        <!-- ELIGE UNA SOLA OPCIÓN para WebViewActivity, NO LAS TRES: -->
-        
-        <!-- OPCIÓN A: Si WebViewActivity está en el paquete principal -->
+        <!-- Actividad Web (renombrada desde MainActivity del paquete web) -->
         <activity
-            android:name=".WebViewActivity"
+            android:name="com.thundernet.web.WebActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         
-        <!-- 
-        OPCIÓN B: Si WebViewActivity está en el paquete web (comenta la anterior)
-        <activity
-            android:name=".web.WebViewActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustResize" />
-        -->
-        
-        <!-- 
-        OPCIÓN C: Si mantienes MainActivity en paquete web (NO RECOMENDADO - comenta las anteriores)
-        <activity
-            android:name=".web.MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustResize" />
-        -->
-
     </application>
 
 </manifest>
