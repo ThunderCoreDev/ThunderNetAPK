@@ -28,14 +28,14 @@ class WebActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var splashLayout: View
     private lateinit var preferences: SharedPreferences
-    private var currentUrl: String = "http://172.16.1.1"
+    private var currentUrl: String = "file:///android_asset/web/index.html"
     private var loadingAnimationHandler: Handler? = null
     private var loadingAnimationRunnable: Runnable? = null
     
     companion object {
         private const val TAG = "ThunderNetApp"
         private const val PREF_SERVER_URL = "server_url"
-        private const val DEFAULT_URL = "http://172.16.1.1"
+        private const val DEFAULT_URL = "file:///android_asset/web/index.html"
         private const val PREF_DARK_MODE = "dark_mode"
     }
 
@@ -262,15 +262,46 @@ class WebActivity : AppCompatActivity() {
         }
     }
     
-    private fun loadUrl(url: String) {
-        try {
-            Log.d(TAG, "Cargando URL: $url")
-            webView.loadUrl(url)
-        } catch (e: Exception) {
-            Log.e(TAG, "Error cargando URL: ${e.message}")
-            showError("No se pudo cargar la página")
-        }
+    private fun loadLocalWebApp() {
+    try {
+        Log.d(TAG, "Cargando web local desde assets")
+        
+        // IMPORTANTE: Esta es la ruta a tu archivo principal
+        val localUrl = "file:///android_asset/admin/index.html"
+        
+        // Carga la web local
+        webView.loadUrl(localUrl)
+        
+        Log.d(TAG, "Web local cargada: $localUrl")
+        
+    } catch (e: Exception) {
+        Log.e(TAG, "Error cargando web local: ${e.message}")
+        
+        // Fallback: mostrar página de error local
+        webView.loadData("""
+            <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style>
+                        body { 
+                            background: #0a1128; 
+                            color: white; 
+                            font-family: Arial; 
+                            padding: 20px; 
+                            text-align: center;
+                        }
+                        h1 { color: #00aeff; }
+                    </style>
+                </head>
+                <body>
+                    <h1>⚡ ThunderNet</h1>
+                    <p>Error cargando la aplicación web local.</p>
+                    <p>Por favor, reinstala la aplicación.</p>
+                </body>
+            </html>
+        """, "text/html", "UTF-8")
     }
+}
     
     private fun showOptionsMenu(view: View) {
         try {
@@ -293,7 +324,7 @@ class WebActivity : AppCompatActivity() {
                             showToast("✅ Página actualizada")
                         }
                         1 -> { // Configurar URL
-                            showUrlConfigDialog()
+                            clearCache()
                         }
                         2 -> { // Modo Oscuro
                             toggleDarkMode()
@@ -370,7 +401,7 @@ class WebActivity : AppCompatActivity() {
         }
     }
     
-    private fun showUrlConfigDialog() {
+    // private fun showUrlConfigDialog() {
         try {
             // Crear el layout personalizado
             val layout = LinearLayout(this).apply {
@@ -391,7 +422,7 @@ class WebActivity : AppCompatActivity() {
             // EditText personalizado
             val editText = EditText(this).apply {
                 setText(currentUrl)
-                hint = "Ej: http://172.16.1.1"
+                hint = "file:///android_asset/web/index.html"
                 setTextColor(Color.WHITE)
                 setHintTextColor(Color.parseColor("#CCCCCC"))
                 
