@@ -133,5 +133,4 @@
         <item name="android:colorBackground">@color/battlenet_card</item>
         <item name="android:textColor">@color/battlenet_text_primary</item>
     </style>
-    </style>
 </resources>
