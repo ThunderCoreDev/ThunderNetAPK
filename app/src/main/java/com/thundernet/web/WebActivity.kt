@@ -607,9 +607,16 @@ class WebActivity : AppCompatActivity() {
         textView.setPadding(20, 20, 20, 20)
     }
     
-    private fun showToast(message: String) {
+    fun showToast(message: String) {
         try {
             val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+            
+         fun logout() {
+    val intent = Intent(this, com.thundernet.admin.LoginActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    startActivity(intent)
+    finish()
+}   
             
             // Personalizar el toast si es posible
             toast.view?.apply {
