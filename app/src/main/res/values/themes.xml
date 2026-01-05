@@ -127,4 +127,10 @@
         <item name="android:textColorPrimary">@color/battlenet_text_primary</item>
         <item name="android:textColor">@color/battlenet_text_primary</item>
     </style>
+    
+    <!-- Overlay faltante para evitar error -->
+    <style name="ThemeOverlay.MaterialComponents.Tooltip" parent="ThemeOverlay.MaterialComponents">
+        <item name="android:colorBackground">@color/battlenet_card</item>
+        <item name="android:textColor">@color/battlenet_text_primary</item>
+    </style>
 </resources>

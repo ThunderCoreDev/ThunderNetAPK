@@ -39,4 +39,22 @@
         <item name="android:background">@color/battlenet_border</item>
         <item name="android:layout_marginVertical">8dp</item>
     </style>
+    
+    <!-- Bases que faltaban -->
+    <style name="TextAppearance.ThunderNet" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/battlenettextprimary</item>
+    </style>
+
+    <style name="TextAppearance.ThunderNet.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/battlenettextprimary</item>
+    </style>
+
+    <style name="Widget.ThunderNet" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/battlenettextprimary</item>
+    </style>
+
+    <!-- Wrapper para PopupMenu si tu AppCompat no lo trae -->
+    <style name="Widget.AppCompat.TextView.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/battlenettextprimary</item>
+    </style>
 </resources>
