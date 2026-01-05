@@ -80,8 +80,8 @@
     
     <!-- Textos BattleNet -->
     <color name="battlenet_text_primary">#FFFFFF</color>
-    <color name="battlenet_text_secondary">#8FA3BF</color>
-    <color name="battlenet_text_muted">#5D7290</color>
+    <color name="battlenet_text_secondary">#CCCCCC</color>
+    <color name="battlenet_text_muted">#888888</color>
     
     <!-- UI Elements BattleNet -->
     <color name="battlenet_border">#2A3F5F</color>
@@ -112,19 +112,4 @@
     <color name="colorControlHighlight">#33FFFFFF</color>
     <color name="colorControlNormal">#FFFFFF</color>
     <color name="colorButtonNormal">#1C2B45</color>
-    
-        <!-- Colores BattleNet -->
-    <color name="battlenettextprimary">#FFFFFF</color>
-    <color name="battlenettextsecondary">#CCCCCC</color>
-    <color name="battlenettextmuted">#888888</color>
-    <color name="battlenet_border">#444444</color>
-    <color name="battlenet_card">#222222</color>
-    
-    <color name="battlenet_border">#2A3F5F</color>
-    <color name="battlenet_card">#0B1622</color>
-
-
-    <color name="battlenet_text_primary">#FFFFFF</color>
-    <color name="battlenet_text_secondary">#CCCCCC</color>
-    <color name="battlenet_text_muted">#888888</color>
 </resources>
