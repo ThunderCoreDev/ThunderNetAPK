@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name:  Checkout
+    - name: 📥 Checkout
       uses: actions/checkout@v4
 
-    - name:  Setup Java
+    - name: ☕ Setup Java
       uses: actions/setup-java@v4
       with:
-        distribution: 'temurin'
+        distribution: temurin
         java-version: '17'
 
-    - name:  Setup Android
+    - name: 📱 Setup Android
       uses: android-actions/setup-android@v3
 
-    - name:  Install Gradle 8.7
+    - name: 🔧 Install Gradle 8.7
       run: |
         echo "=== Descargando Gradle 8.7 ==="
         wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
@@ -30,20 +30,11 @@ jobs:
         echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
         gradle --version
 
-    - name:  Build APK (Debug)
+    - name: 🏗️ Build APK (Debug)
       run: gradle assembleDebug --stacktrace
 
-    - name:  Upload Debug APK
+    - name: 📤 Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
         name: ThunderNet-APK-Debug
         path: app/build/outputs/apk/debug/*.apk
-
-    - name:  Build APK (Release)
-      run: gradle assembleRelease --stacktrace
-
-    - name:  Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: ThunderNet-APK-Release
-        path: app/build/outputs/apk/release/*.apk
