@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Nombre de la aplicación -->
-    <string name="app_name">ThunderNet</string>
-
     <!-- Colores básicos -->
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
@@ -11,7 +8,7 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorText">#000000</color>
 
-    <!-- Estilos por defecto -->
+    <!-- Tema principal de la app -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
