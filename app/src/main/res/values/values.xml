@@ -1,20 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- Colores básicos -->
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorText">#000000</color>
-
-    <!-- Tema principal de la app -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="android:textColor">@color/colorText</item>
-    </style>
-
-</resources>
+<resources/>
