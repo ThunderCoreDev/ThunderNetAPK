@@ -1,4 +1,4 @@
-name: ThunderNet Build - Opción 2
+name: ThunderNet Build - Gradle Directo
 
 on:
   push:
@@ -10,54 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout
+    - name:  Checkout
       uses: actions/checkout@v4
 
-    - name: 🔧 Create Gradle Wrapper
-      run: |
-        echo "=== Creando gradle wrapper en el runner ==="
-        mkdir -p gradle/wrapper
-
-        # Descargar el JAR oficial del wrapper
-        wget -q -O gradle/wrapper/gradle-wrapper.jar \
-          https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar
-
-        # Crear gradle-wrapper.properties apuntando a Gradle 8.7
-        cat > gradle/wrapper/gradle-wrapper.properties <<'EOF'
-        distributionBase=GRADLE_USER_HOME
-        distributionPath=wrapper/dists
-        zipStoreBase=GRADLE_USER_HOME
-        zipStorePath=wrapper/dists
-        distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-all.zip
-        EOF
-
-        # Crear script gradlew
-        cat > gradlew <<'EOF'
-        #!/bin/bash
-        DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-        JAR="$DIR/gradle/wrapper/gradle-wrapper.jar"
-        exec java -jar "$JAR" "$@"
-        EOF
-
-        chmod +x gradlew
-        ls -la gradlew gradle/wrapper/
-
-    - name: ☕ Setup Java
+    - name:  Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: 📱 Setup Android
+    - name:  Setup Android
       uses: android-actions/setup-android@v3
 
-    - name: 🏗️ Build APK
+    - name:  Install Gradle 8.7
       run: |
-        ./gradlew --version
-        ./gradlew assembleDebug --stacktrace
+        echo "=== Descargando Gradle 8.7 ==="
+        wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
+        unzip -q gradle-8.7-bin.zip
+        echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
+        gradle --version
 
-    - name: 📤 Upload APK
+    - name:  Build APK (Debug)
+      run: gradle assembleDebug --stacktrace
+
+    - name:  Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
-        name: ThunderNet-APK
+        name: ThunderNet-APK-Debug
         path: app/build/outputs/apk/debug/*.apk
+
+    - name:  Build APK (Release)
+      run: gradle assembleRelease --stacktrace
+
+    - name:  Upload Release APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThunderNet-APK-Release
+        path: app/build/outputs/apk/release/*.apk
