@@ -5,38 +5,36 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thundenet.admin.databinding.ActivityMainBinding
 import com.thundenet.admin.ui.adapters.ModulesPagerAdapter
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    // Lista de títulos con emojis
     private val tabTitles = listOf(
-        "Jugadores", "Personajes", "Economía", "Ítems", "Servidor",
-        "Tickets", "Eventos", "Comandos", "Broadcast", "Piedra hogar",
-        "Config", "Logs", "Estadísticas", "Acerca de"
-    )
-
-    private val tabIcons = listOf(
-        R.drawable.ic_people, R.drawable.ic_person, R.drawable.ic_attach_money, R.drawable.ic_inventory, R.drawable.ic_server,
-        R.drawable.ic_ticket, R.drawable.ic_event, R.drawable.ic_terminal, R.drawable.ic_broadcast, R.drawable.ic_home,
-        R.drawable.ic_settings, R.drawable.ic_list, R.drawable.ic_insights, R.drawable.ic_info
+        "👥 Jugadores", "🧑 Personajes", "💰 Economía", "📦 Ítems", "🖥️ Servidor",
+        "🎫 Tickets", "📅 Eventos", "⌨️ Comandos", "📢 Broadcast", "🏠 Piedra hogar",
+        "⚙️ Config", "📋 Logs", "📊 Estadísticas", "ℹ️ Acerca de"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_ThunderNetAdmin)
+        setTheme(R.style.Theme_ThunderNetAdmin) // asegúrate que el nombre del tema coincida con tu themes.xml
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val adapter = ModulesPagerAdapter(this)
         binding.viewPager.adapter = adapter
+
+        // Animación de transición entre páginas
         binding.viewPager.setPageTransformer { page, position ->
-            page.alpha = 0.2f + (1 - kotlin.math.abs(position)) * 0.8f
+            page.alpha = 0.2f + (1 - abs(position)) * 0.8f
             page.translationX = -position * page.width * 0.2f
         }
 
+        // Asignar títulos con emojis a cada tab
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = tabTitles[position]
-            tab.setIcon(tabIcons[position])
         }.attach()
     }
 }
