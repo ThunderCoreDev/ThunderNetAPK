@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentCommandsBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentCommandsBinding
 
 class CommandsFragment : BaseModuleFragment(R.layout.fragment_commands) {
     private var _binding: FragmentCommandsBinding? = null
@@ -18,7 +18,7 @@ class CommandsFragment : BaseModuleFragment(R.layout.fragment_commands) {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.executeCommand(cmd)
         val msg = if (ok) "Comando ejecutado: $cmd" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 }

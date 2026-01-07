@@ -1,12 +1,12 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.thundenet.admin.data.repo.ServerRepository
-import com.thundenet.admin.domain.ActionResult
-import com.thundenet.admin.domain.offlineFailure
-import com.thundenet.admin.util.showSnack
+import com.thundernet.admin.data.repo.ServerRepository
+import com.thundernet.admin.domain.ActionResult
+import com.thundernet.admin.domain.offlineFailure
+import com.thundernet.admin.util.showSnack
 
 abstract class BaseModuleFragment(layoutId: Int) : Fragment(layoutId) {
     protected lateinit var repo: ServerRepository

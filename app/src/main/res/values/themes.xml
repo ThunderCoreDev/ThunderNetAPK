@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ThundeNetAdmin" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.ThunderNetAdmin" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/blueElectric</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSurface">@color/blueDark</item>
@@ -9,5 +9,5 @@
     </style>
 
     <!-- Para setTheme en MainActivity -->
-    <style name="Theme_ThundeNetAdmin" parent="Theme.ThundeNetAdmin"/>
+    <style name="Theme_ThunderNetAdmin" parent="Theme.ThunderNetAdmin"/>
 </resources>

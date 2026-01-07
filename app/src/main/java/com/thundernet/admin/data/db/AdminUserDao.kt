@@ -1,4 +1,4 @@
-package com.thundenet.admin.data.db
+package com.thundernet.admin.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,10 +1,10 @@
-package com.thundenet.admin.data.repo
+package com.thundernet.admin.data.repo
 
 import android.content.Context
 import kotlinx.coroutines.flow.first
-import com.thundenet.admin.data.network.SoapClient
-import com.thundenet.admin.data.network.SoapResult
-import com.thundenet.admin.data.prefs.AppPrefs
+import com.thundernet.admin.data.network.SoapClient
+import com.thundernet.admin.data.network.SoapResult
+import com.thundernet.admin.data.prefs.AppPrefs
 
 class ServerRepository(private val context: Context) {
 
@@ -39,7 +39,7 @@ class ServerRepository(private val context: Context) {
     suspend fun giveItem(character: String, itemId: Int, count: Int): Boolean {
         val c = client()
         // Enviar por correo al personaje
-        val subject = "ThundeNet Admin"
+        val subject = "ThunderNet Admin"
         val text = "Entrega de ítems"
         val cmd = "send items $character \"$subject\" \"$text\" $itemId:$count"
         return c.execute(cmd) is SoapResult.Ok

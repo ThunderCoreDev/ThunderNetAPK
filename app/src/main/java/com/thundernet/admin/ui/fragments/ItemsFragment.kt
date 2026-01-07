@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentItemsBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentItemsBinding
 
 class ItemsFragment : BaseModuleFragment(R.layout.fragment_items) {
     private var _binding: FragmentItemsBinding? = null
@@ -20,7 +20,7 @@ class ItemsFragment : BaseModuleFragment(R.layout.fragment_items) {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.giveItem(char, itemId, count)
         val msg = if (ok) "Ítem entregado: $itemId x$count a $char" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 }

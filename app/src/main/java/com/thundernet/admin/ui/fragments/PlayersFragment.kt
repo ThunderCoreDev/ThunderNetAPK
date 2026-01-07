@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentPlayersBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentPlayersBinding
 
 class PlayersFragment : BaseModuleFragment(R.layout.fragment_players) {
     private var _binding: FragmentPlayersBinding? = null
@@ -18,7 +18,7 @@ class PlayersFragment : BaseModuleFragment(R.layout.fragment_players) {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.banPlayer(account)
         val msg = if (ok) "Cuenta baneada: $account" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 binding.btnUnban.setOnClickListener {
@@ -26,7 +26,7 @@ binding.btnUnban.setOnClickListener {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.unbanPlayer(account)
         val msg = if (ok) "Cuenta desbaneada: $account" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 }

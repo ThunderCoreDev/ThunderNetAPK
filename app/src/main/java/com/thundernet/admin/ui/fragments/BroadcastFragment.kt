@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentBroadcastBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentBroadcastBinding
 
 class BroadcastFragment : BaseModuleFragment(R.layout.fragment_broadcast) {
     private var _binding: FragmentBroadcastBinding? = null
@@ -18,7 +18,7 @@ class BroadcastFragment : BaseModuleFragment(R.layout.fragment_broadcast) {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.broadcast(msgText)
         val msg = if (ok) "Broadcast enviado" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 }

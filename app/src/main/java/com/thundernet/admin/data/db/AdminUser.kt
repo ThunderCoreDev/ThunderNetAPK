@@ -1,4 +1,4 @@
-package com.thundenet.admin.data.db
+package com.thundernet.admin.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

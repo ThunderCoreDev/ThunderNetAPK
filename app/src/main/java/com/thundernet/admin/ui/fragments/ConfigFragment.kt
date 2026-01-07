@@ -1,13 +1,13 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.thundenet.admin.R
-import com.thundenet.admin.data.db.AppDatabase
-import com.thundenet.admin.data.db.AdminUser
-import com.thundenet.admin.data.prefs.AppPrefs
-import com.thundenet.admin.databinding.FragmentConfigBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.data.db.AppDatabase
+import com.thundernet.admin.data.db.AdminUser
+import com.thundernet.admin.data.prefs.AppPrefs
+import com.thundernet.admin.databinding.FragmentConfigBinding
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
@@ -26,7 +26,7 @@ class ConfigFragment : BaseModuleFragment(R.layout.fragment_config) {
             val pass = binding.etDbPass.text.toString().trim()
             lifecycleScope.launch {
                 AppPrefs.saveDbConfig(requireContext(), host, port, user, pass)
-                com.thundenet.admin.util.showSnack(view, "DB guardada")
+                com.thundernet.admin.util.showSnack(view, "DB guardada")
             }
         }
 
@@ -39,7 +39,7 @@ class ConfigFragment : BaseModuleFragment(R.layout.fragment_config) {
             val version = binding.etGameVersion.text.toString().trim().ifEmpty { "WotLK" }
             lifecycleScope.launch {
                 AppPrefs.saveSoapConfig(requireContext(), soapHost, soapPort, soapUser, soapPass, emulator, version)
-                com.thundenet.admin.util.showSnack(view, "SOAP/Emulador guardado")
+                com.thundernet.admin.util.showSnack(view, "SOAP/Emulador guardado")
             }
         }
 
@@ -49,7 +49,7 @@ class ConfigFragment : BaseModuleFragment(R.layout.fragment_config) {
             lifecycleScope.launch {
                 val hash = sha256(pass)
                 AppDatabase.get().adminUserDao().upsert(AdminUser(user, hash))
-                com.thundenet.admin.util.showSnack(view, "Contraseña actualizada")
+                com.thundernet.admin.util.showSnack(view, "Contraseña actualizada")
             }
         }
     }

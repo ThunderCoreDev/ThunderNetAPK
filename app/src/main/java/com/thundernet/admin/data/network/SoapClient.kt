@@ -1,4 +1,4 @@
-package com.thundenet.admin.data.network
+package com.thundernet.admin.data.network
 
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType

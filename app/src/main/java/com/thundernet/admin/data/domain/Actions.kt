@@ -1,4 +1,4 @@
-package com.thundenet.admin.domain
+package com.thundernet.admin.domain
 
 sealed class ActionResult {
     data class Success(val message: String) : ActionResult()

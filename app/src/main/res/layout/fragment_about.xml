@@ -3,7 +3,7 @@
     android:orientation="vertical" android:padding="24dp"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView android:text="ThundeNet Admin" android:textStyle="bold" android:textSize="20sp"
+    <TextView android:text="ThunderNet Admin" android:textStyle="bold" android:textSize="20sp"
         android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
     <TextView android:text="Versión 1.0.0"

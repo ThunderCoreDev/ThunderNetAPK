@@ -1,4 +1,4 @@
-package com.thundenet.admin.data.prefs
+package com.thundernet.admin.data.prefs
 
 import android.content.Context
 import androidx.datastore.preferences.core.*

@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentServerBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentServerBinding
 
 class ServerFragment : BaseModuleFragment(R.layout.fragment_server) {
     private var _binding: FragmentServerBinding? = null
@@ -18,7 +18,7 @@ class ServerFragment : BaseModuleFragment(R.layout.fragment_server) {
         }
         binding.btnStatus.setOnClickListener {
             val status = if (repo.testConnection()) "Online" else "Offline"
-            com.thundenet.admin.util.showSnack(view, "Estado del servidor: $status")
+            com.thundernet.admin.util.showSnack(view, "Estado del servidor: $status")
         }
     }
 }

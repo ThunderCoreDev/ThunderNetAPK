@@ -1,4 +1,4 @@
-package com.thundenet.admin.util
+package com.thundernet.admin.util
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

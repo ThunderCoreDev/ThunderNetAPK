@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thundenet.admin">
+    package="com.thundernet.admin">
 
     <application
-        android:name=".ThundeNetApp"
+        android:name=".ThunderNetApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="ThundeNet Admin"
-        android:theme="@style/Theme.ThundeNetAdmin">
+        android:label="ThunderNet Admin"
+        android:theme="@style/Theme.ThunderNetAdmin">
         <activity android:name=".ui.SetupAdminActivity"
             android:exported="true">
             <intent-filter>

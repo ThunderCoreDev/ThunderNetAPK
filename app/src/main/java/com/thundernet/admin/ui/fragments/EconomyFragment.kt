@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentEconomyBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentEconomyBinding
 
 class EconomyFragment : BaseModuleFragment(R.layout.fragment_economy) {
     private var _binding: FragmentEconomyBinding? = null

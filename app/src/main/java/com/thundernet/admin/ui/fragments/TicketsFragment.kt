@@ -1,9 +1,9 @@
-package com.thundenet.admin.ui.fragments
+package com.thundernet.admin.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import com.thundenet.admin.R
-import com.thundenet.admin.databinding.FragmentTicketsBinding
+import com.thundernet.admin.R
+import com.thundernet.admin.databinding.FragmentTicketsBinding
 
 class TicketsFragment : BaseModuleFragment(R.layout.fragment_tickets) {
     private var _binding: FragmentTicketsBinding? = null
@@ -17,14 +17,14 @@ class TicketsFragment : BaseModuleFragment(R.layout.fragment_tickets) {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.createTicket("PlayerName", "Ayuda requerida")
         val msg = if (ok) "Ticket creado" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 binding.btnCloseTicket.setOnClickListener {
     lifecycleScope.launch {
         val ok = repo.testConnection() && repo.closeTicket(123)
         val msg = if (ok) "Ticket cerrado" else "No hay conexión al servidor"
-        com.thundenet.admin.util.showSnack(view, msg)
+        com.thundernet.admin.util.showSnack(view, msg)
     }
 }
 }

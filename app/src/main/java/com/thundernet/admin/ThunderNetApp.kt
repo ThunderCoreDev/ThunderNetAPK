@@ -1,9 +1,9 @@
-package com.thundenet.admin
+package com.thundernet.admin
 
 import android.app.Application
-import com.thundenet.admin.data.db.AppDatabase
+import com.thundernet.admin.data.db.AppDatabase
 
-class ThundeNetApp : Application() {
+class ThunderNetApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AppDatabase.init(this)

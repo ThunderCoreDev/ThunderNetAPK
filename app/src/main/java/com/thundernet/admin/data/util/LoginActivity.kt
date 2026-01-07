@@ -1,13 +1,13 @@
-package com.thundenet.admin.ui
+package com.thundernet.admin.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.thundenet.admin.MainActivity
-import com.thundenet.admin.data.db.AppDatabase
-import com.thundenet.admin.data.prefs.AppPrefs
-import com.thundenet.admin.databinding.ActivityLoginBinding
+import com.thundernet.admin.MainActivity
+import com.thundernet.admin.data.db.AppDatabase
+import com.thundernet.admin.data.prefs.AppPrefs
+import com.thundernet.admin.databinding.ActivityLoginBinding
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
