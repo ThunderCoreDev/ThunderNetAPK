@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="16dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <EditText android:id="@+id/etCharacter" android:hint="Personaje"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/etCharacter"
+        android:hint="@string/hint_character"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <EditText android:id="@+id/etItemId" android:hint="ID de ítem"
+    <EditText
+        android:id="@+id/etItemId"
+        android:hint="@string/hint_item_id"
         android:inputType="number"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <EditText android:id="@+id/etCount" android:hint="Cantidad"
+    <EditText
+        android:id="@+id/etCount"
+        android:hint="@string/hint_item_count"
         android:inputType="number"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnGiveItem" android:text="Dar ítem"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnGiveItem"
+        android:text="@string/btn_give_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

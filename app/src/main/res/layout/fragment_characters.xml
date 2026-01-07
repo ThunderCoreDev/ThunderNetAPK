@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="16dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <EditText android:id="@+id/etCharacter" android:hint="Personaje"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/etCharacter"
+        android:hint="@string/hint_character"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnResetTalents" android:text="Reset talentos"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnResetTalents"
+        android:text="@string/btn_reset_talents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnTeleport" android:text="Teletransportar"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnTeleport"
+        android:text="@string/btn_teleport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

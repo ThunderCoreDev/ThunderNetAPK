@@ -1,50 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical" android:padding="16dp"
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <TextView android:text="Base de datos" android:textStyle="bold"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <EditText android:id="@+id/etDbHost" android:hint="Host"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etDbPort" android:hint="Puerto" android:inputType="number"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etDbUser" android:hint="Usuario"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etDbPass" android:hint="Contraseña" android:inputType="textPassword"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnSaveDb" android:text="Guardar DB"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@string/title_database"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-        <TextView android:text="SOAP / Emulador" android:textStyle="bold"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etDbHost"
+            android:hint="@string/hint_db_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <EditText android:id="@+id/etSoapHost" android:hint="SOAP host (worldserver)"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etSoapPort" android:hint="SOAP port (ej: 7878)" android:inputType="number"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etSoapUser" android:hint="SOAP user"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etSoapPass" android:hint="SOAP pass" android:inputType="textPassword"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etDbPort"
+            android:hint="@string/hint_db_port"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <EditText android:id="@+id/etEmulator" android:hint="Emulador (TrinityCore)"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etGameVersion" android:hint="Versión del juego (WotLK)"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnSaveSoap" android:text="Guardar SOAP/Emulador"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etDbUser"
+            android:hint="@string/hint_db_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <TextView android:text="Cuenta administrativa" android:textStyle="bold"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etDbPass"
+            android:hint="@string/hint_db_pass"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <EditText android:id="@+id/etAdminUser" android:hint="Usuario admin"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etAdminPass" android:hint="Nueva contraseña" android:inputType="textPassword"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnChangeAdminPass" android:text="Cambiar contraseña"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnSaveDb"
+            android:text="@string/btn_save_db"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@string/title_soap"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- SOAP fields -->
+        <EditText
+            android:id="@+id/etSoapHost"
+            android:hint="@string/hint_soap_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etSoapPort"
+            android:hint="@string/hint_soap_port"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etSoapUser"
+            android:hint="@string/hint_soap_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etSoapPass"
+            android:hint="@string/hint_soap_pass"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etEmulator"
+            android:hint="@string/hint_emulator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etGameVersion"
+            android:hint="@string/hint_game_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnSaveSoap"
+            android:text="@string/btn_save_soap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@string/title_admin_account"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etAdminUser"
+            android:hint="@string/hint_admin_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etAdminPass"
+            android:hint="@string/hint_admin_pass"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnChangeAdminPass"
+            android:text="@string/btn_change_admin_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

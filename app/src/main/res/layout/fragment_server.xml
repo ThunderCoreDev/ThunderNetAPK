@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="16dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button android:id="@+id/btnRestart" android:text="Reiniciar servidor"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnRestart"
+        android:text="@string/btn_restart_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnStatus" android:text="Ver estado"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnStatus"
+        android:text="@string/btn_status_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

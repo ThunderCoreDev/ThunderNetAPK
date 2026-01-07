@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="16dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <EditText android:id="@+id/etAccount" android:hint="Cuenta"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/etAccount"
+        android:hint="@string/hint_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnBan" android:text="Banear"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnBan"
+        android:text="@string/btn_ban"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <Button android:id="@+id/btnUnban" android:text="Desbanear"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnUnban"
+        android:text="@string/btn_unban"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
