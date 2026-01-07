@@ -7,7 +7,6 @@
     <string name="hint_admin_user">Usuario admin</string>
     <string name="hint_admin_pass">Contraseña</string>
     <string name="btn_save">Guardar</string>
-    <string name="app_name">ThunderNet Admin</string>
     <string name="app_version">Versión 1.0.0</string>
     <string name="app_description">Administración de servidores privados de World of Warcraft</string>
     <string name="hint_message">Mensaje</string>
