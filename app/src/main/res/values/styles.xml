@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.ThunderIA" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/battle_electric_blue</item>
+        <item name="colorPrimaryDark">@color/battle_dark_blue</item>
+        <item name="colorAccent">@color/battle_electric_blue</item>
+    </style>
+</resources>
