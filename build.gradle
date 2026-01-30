@@ -5,7 +5,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        // Plugin de Android Gradle
         classpath "com.android.tools.build:gradle:8.2.0"
+        // Plugin de Kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
     }
 }
@@ -15,4 +17,9 @@ allprojects {
         google()
         mavenCentral()
     }
+}
+
+// Opcional: configuración global para Gradle
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
